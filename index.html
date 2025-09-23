@@ -33,7 +33,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #E4B7A0;
+            background: linear-gradient(to bottom, #000000 0%, #333333 70%, #FFFFFF 100%);
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
@@ -121,34 +121,40 @@
         
 
         
-        /* Card Image */
+        /* Card Images */
         .card-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        
-        /* Glare Effect */
-        .card-glare {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, 
-                transparent 30%, 
-                rgba(255,255,255,0.1) 50%, 
-                transparent 70%);
-            opacity: 0;
             transition: opacity 0.3s ease;
-            pointer-events: none;
-            transform: translateX(-100%);
         }
-        
-        .card:hover .card-glare {
+
+        .card-image.static {
             opacity: 1;
         }
+
+        .card-image.gif {
+            opacity: 0;
+        }
+
+        .card.animated .card-image.static {
+            opacity: 0;
+        }
+
+        .card.animated .card-image.gif {
+            opacity: 1;
+        }
+
+
+
+        .card-container:hover .card {
+            transform: scale(1.05);
+        }
+        
+
         
         /* Card Back Content */
         .card-title {
@@ -262,8 +268,47 @@
             z-index: 10;
         }
         
-        .card.focused:not(.flipped) {
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 4px rgba(255,255,255,0.8);
+
+
+        .card-description-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(100%); /* Start hidden below the card */
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for both */
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'MedievalSharp', cursive;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+        }
+
+        .overlay-title {
+            font-size: 1.5rem; /* Bigger font size for the card name */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .overlay-description {
+            font-size: 1rem; /* Smaller font size for the description */
+            line-height: 1.4;
+            color: white;
+            max-width: 90%;
+        }
+
+        .card-container:hover .card-description-overlay {
+            opacity: 1;
+            transform: translateY(0); /* Slide up into view */
         }
     </style>
 </head>
@@ -333,21 +378,42 @@
             const front = document.createElement('div');
             front.className = 'card-face card-front';
             
-            const img = document.createElement('img');
-            img.className = 'card-image';
-            img.src = card.src;
-            img.alt = card.title;
-            img.loading = index > 3 ? 'lazy' : 'eager'; // Lazy load cards below the fold
+            const staticImg = document.createElement("img");
+            staticImg.className = "card-image static";
+            staticImg.src = card.src;
+            staticImg.alt = card.title;
+            staticImg.loading = index > 3 ? 'lazy' : 'eager'; // Lazy load cards below the fold
             
-            const glare = document.createElement('div');
-            glare.className = 'card-glare';
+            const gifImg = document.createElement("img");
+            gifImg.className = "card-image gif";
+            gifImg.src = card.gifSrc;
+            gifImg.alt = card.title + " animated";
+            gifImg.loading = 'lazy';
+            gifImg.style.display = 'none'; // Initially hidden
             
-            front.appendChild(img);
-            front.appendChild(glare);
+            front.appendChild(staticImg);
+            front.appendChild(gifImg);
+            
+
             
 
             
             button.appendChild(front);
+
+            const descriptionOverlay = document.createElement("div");
+            descriptionOverlay.className = "card-description-overlay";
+
+            const overlayTitle = document.createElement("span");
+            overlayTitle.className = "overlay-title";
+            overlayTitle.textContent = card.title;
+
+            const overlayDescription = document.createElement("span");
+            overlayDescription.className = "overlay-description";
+            overlayDescription.textContent = card.desc;
+
+            descriptionOverlay.appendChild(overlayTitle);
+            descriptionOverlay.appendChild(overlayDescription);
+            button.appendChild(descriptionOverlay);
 
             container.appendChild(button);
             
@@ -374,35 +440,39 @@
             });
             
             // Mouse/touch tilt effects (if motion is not reduced)
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
                 setupTiltEffect(cardElement);
             }
         }
         
-        // Setup tilt effect for a card
+
+        
+
+        
+          // Setup tilt effect for a card
         function setupTiltEffect(cardElement) {
             let isPointerDown = false;
             
-            cardElement.addEventListener('pointerenter', () => {
-                cardElement.style.transition = 'transform 0.1s ease-out';
+            cardElement.addEventListener("pointerenter", () => {
+                cardElement.style.transition = "transform 0.1s ease-out";
             });
             
-            cardElement.addEventListener('pointerleave', () => {
+            cardElement.addEventListener("pointerleave", () => {
                 if (!isPointerDown) {
                     resetTilt(cardElement);
                 }
             });
             
-            cardElement.addEventListener('pointerdown', () => {
+            cardElement.addEventListener("pointerdown", () => {
                 isPointerDown = true;
             });
             
-            cardElement.addEventListener('pointerup', () => {
+            cardElement.addEventListener("pointerup", () => {
                 isPointerDown = false;
             });
             
-            cardElement.addEventListener('pointermove', (e) => {
-                if (cardElement.classList.contains('flipped')) return;
+            cardElement.addEventListener("pointermove", (e) => {
+                if (cardElement.classList.contains("animated")) return; // Don't tilt if animated
                 
                 const rect = cardElement.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -416,54 +486,41 @@
                 
                 cardElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
                 
-                // Update glare position
-                const glare = cardElement.querySelector('.card-glare');
-                if (glare) {
-                    const glareX = (x / rect.width) * 100;
-                    const glareY = (y / rect.height) * 100;
-                    glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.3) 0%, transparent 50%)`;
-                    glare.style.transform = 'translateX(0)';
-                }
+
             });
         }
         
         // Reset tilt effect
         function resetTilt(cardElement) {
-            cardElement.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            cardElement.style.transform = '';
+            cardElement.style.transition = "transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+            cardElement.style.transform = "";
             
-            const glare = cardElement.querySelector('.card-glare');
-            if (glare) {
-                glare.style.transform = 'translateX(-100%)';
-            }
-        }
-        
 
+        }
         
         // Focus a card
         function focusCard(cardElement, slug) {
             // Remove focus from previous card
-            if (currentFocusedCard) {
-                currentFocusedCard.classList.remove('focused');
+            if (currentFocusedCard && currentFocusedCard !== cardElement) {
+                currentFocusedCard.classList.remove("focused", "animated");
             }
             
-            // Focus new card
-            cardElement.classList.add('focused');
+            // Toggle animation for the clicked card
+            cardElement.classList.toggle("animated");
+            cardElement.classList.add("focused"); // Keep focused when animated
             currentFocusedCard = cardElement;
             
             // Scroll into view
-            cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            cardElement.scrollIntoView({ behavior: "smooth", block: "center" });
             
             // Update URL
             const url = new URL(window.location);
-            url.searchParams.set('card', slug);
-            history.replaceState(null, '', url);
-        }
-        
-        // Unfocus current card
+            url.searchParams.set("card", slug);
+            history.replaceState(null, "", url);
+        }   // Unfocus current card
         function unfocusCard(cardElement) {
             if (cardElement) {
-                cardElement.classList.remove('focused', 'flipped');
+                cardElement.classList.remove("focused", "animated");
                 cardElement.setAttribute('aria-pressed', 'false');
             }
             
@@ -552,4 +609,3 @@
     </script>
 </body>
 </html>
-
