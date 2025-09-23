@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Lione",
+    "slug": "lione",
+    "src": "images/Lione.png",
+    "desc": "A fierce warrior, guardian of the realm.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Quiet",
+    "slug": "quiet",
+    "src": "images/quiet.jpg",
+    "desc": "A silent scholar, keeper of ancient knowledge.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Artfox",
+    "slug": "artfox",
+    "src": "images/artfox.png",
+    "desc": "A mischievous artist, bringing color to the world.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Echo",
+    "slug": "echo",
+    "src": "images/Echo.jpg",
+    "desc": "A mystical spirit, reflecting the whispers of the forest.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Ember",
+    "slug": "ember",
+    "src": "images/Ember.jpg",
+    "desc": "A fiery sorceress, wielding the power of flames.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Lumine",
+    "slug": "lumine",
+    "src": "images/Lumine.png",
+    "desc": "A radiant being, illuminating the path forward.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Sprout",
+    "slug": "sprout",
+    "src": "images/sprout.jpg",
+    "desc": "A nascent life, full of potential and growth.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Wisp",
+    "slug": "wisp",
+    "src": "images/wisp.jpg",
+    "desc": "A gentle, ethereal guide…",
+    "link": "#",
+    "tags": ["9:16"]
+  }
+]
+
