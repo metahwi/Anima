@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Card Gallery</title>
+    <title>Isegae Card Gallery</title>
     <meta name="description" content="Explore a collection of 8 beautiful art cards with interactive 3D effects and immersive experiences.">
     
     <!-- Open Graph tags -->
-    <meta property="og:title" content="Interactive Card Gallery">
+    <meta property="og:title" content="Isegae Card Gallery">
     <meta property="og:description" content="Explore a collection of 8 beautiful art cards with interactive 3D effects and immersive experiences.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
@@ -30,7 +30,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #4A4E52;
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
@@ -98,16 +98,14 @@
             outline-offset: 4px;
         }
         
-        .card.flipped {
-            transform: rotateY(180deg);
-        }
+
         
         /* Card Faces */
         .card-face {
             position: absolute;
             width: 100%;
             height: 100%;
-            backface-visibility: hidden;
+
             border-radius: 16px;
             overflow: hidden;
         }
@@ -117,17 +115,7 @@
             position: relative;
         }
         
-        .card-back {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            text-align: center;
-            color: white;
-        }
+
         
         /* Card Image */
         .card-image {
@@ -277,8 +265,8 @@
 </head>
 <body>
     <header class="header">
-        <h1>Interactive Card Gallery</h1>
-        <p>Explore a collection of beautiful art cards with immersive 3D effects</p>
+        <h1>Isegae Card Gallery</h1>
+
     </header>
     
     <main class="gallery" id="gallery">
@@ -353,33 +341,10 @@
             front.appendChild(img);
             front.appendChild(glare);
             
-            // Card back
-            const back = document.createElement('div');
-            back.className = 'card-face card-back';
-            
-            const title = document.createElement('h2');
-            title.className = 'card-title';
-            title.textContent = card.title;
-            
-            const description = document.createElement('p');
-            description.className = 'card-description';
-            description.textContent = card.desc;
-            
-            const link = document.createElement('a');
-            link.className = 'card-link';
-            link.href = card.link;
-            link.textContent = 'Details';
-            link.onclick = (e) => {
-                e.stopPropagation();
-                trackEvent('open_link', { card_slug: card.slug });
-            };
-            
-            back.appendChild(title);
-            back.appendChild(description);
-            back.appendChild(link);
+
             
             button.appendChild(front);
-            button.appendChild(back);
+
             container.appendChild(button);
             
             // Add event listeners
@@ -390,16 +355,15 @@
         
         // Setup event listeners for a card
         function setupCardEventListeners(cardElement, cardData) {
-            // Click/tap to flip
+            // Click/tap to focus
             cardElement.addEventListener('click', () => {
-                flipCard(cardElement, cardData);
-            });
-            
+                focusCard(cardElement, cardData.slug);
+            });            
             // Keyboard support
             cardElement.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    flipCard(cardElement, cardData);
+                    focusCard(cardElement, cardData.slug);
                 } else if (e.key === 'Escape') {
                     unfocusCard(cardElement);
                 }
@@ -470,22 +434,7 @@
             }
         }
         
-        // Flip a card
-        function flipCard(cardElement, cardData) {
-            const isFlipped = cardElement.classList.contains('flipped');
-            
-            if (isFlipped) {
-                cardElement.classList.remove('flipped');
-                cardElement.setAttribute('aria-pressed', 'false');
-            } else {
-                cardElement.classList.add('flipped');
-                cardElement.setAttribute('aria-pressed', 'true');
-                trackEvent('flip_card', { card_slug: cardData.slug });
-            }
-            
-            // Focus the card
-            focusCard(cardElement, cardData.slug);
-        }
+
         
         // Focus a card
         function focusCard(cardElement, slug) {
