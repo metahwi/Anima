@@ -500,23 +500,29 @@
         
         // Focus a card
         function focusCard(cardElement, slug) {
-            // Remove focus from previous card
             if (currentFocusedCard && currentFocusedCard !== cardElement) {
-                currentFocusedCard.classList.remove("focused", "animated");
+                unfocusCard(currentFocusedCard);
             }
-            
-            // Toggle animation for the clicked card
-            cardElement.classList.toggle("animated");
-            cardElement.classList.add("focused"); // Keep focused when animated
-            currentFocusedCard = cardElement;
-            
-            // Scroll into view
-            cardElement.scrollIntoView({ behavior: "smooth", block: "center" });
-            
-            // Update URL
-            const url = new URL(window.location);
-            url.searchParams.set("card", slug);
-            history.replaceState(null, "", url);
+
+            const isAnimated = cardElement.classList.toggle("animated");
+            cardElement.setAttribute("aria-pressed", isAnimated);
+
+            const staticImg = cardElement.querySelector(".card-image.static");
+            const gifImg = cardElement.querySelector(".card-image.gif");
+
+            if (isAnimated) {
+                staticImg.style.display = "none";
+                gifImg.style.display = "block";
+                currentFocusedCard = cardElement;
+                updateURL(slug);
+            } else {
+                staticImg.style.display = "block";
+                gifImg.style.display = "none";
+                currentFocusedCard = null;
+                updateURL();
+            }
+        }
+
         }   // Unfocus current card
         function unfocusCard(cardElement) {
             if (cardElement) {
