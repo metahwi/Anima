@@ -39,7 +39,7 @@
             overflow-x: hidden;
         }
         
-        /* Header */
+        /* ===== DESKTOP HEADER STYLES ===== */
         .header {
             text-align: center;
             padding: 2rem 1rem;
@@ -48,11 +48,19 @@
             z-index: 100;
         }
         
-        /* Animate All Button */
-        .animate-all-btn {
+        /* ===== CONTROL BUTTONS CONTAINER ===== */
+        .controls {
             position: absolute;
             top: 2rem;
             right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 101;
+        }
+        
+        /* ===== DESKTOP ANIMATE BUTTON STYLES ===== */
+        .animate-all-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.3);
             color: white;
@@ -65,7 +73,6 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-            z-index: 101;
         }
         
         .animate-all-btn:hover {
@@ -84,43 +91,97 @@
             border-color: rgba(255, 100, 100, 0.6);
         }
         
+        /* ===== LANGUAGE TOGGLE SWITCH ===== */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 0.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .lang-option {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'MedievalSharp', cursive;
+        }
+        
+        .lang-option.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
         .header h1 {
             font-family: 'MedievalSharp', cursive;
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
-        .header p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            opacity: 0.9;
-            max-width: 600px;
+        /* ===== USER GUIDELINES SECTION ===== */
+        .guidelines {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            opacity: 0.85;
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.8;
+            text-align: left; /* INDENTED: Changed from center to left for proper indentation */
+            color: rgba(255, 255, 255, 0.9);
+            padding-left: 10rem; /* INDENTED: Add left padding to shift guidelines to the right */
         }
         
-        /* Desktop Gallery Container */
+        .guidelines div {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* LEFT ALIGNED: Changed from center to flex-start */
+            gap: 0.5rem;
+        }
+        
+        .guidelines .highlight {
+            color: #fff;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* ===== DESKTOP GALLERY CONTAINER - OPTIMIZED GRID LAYOUT ===== */
         .gallery {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 3rem 2rem; /* DESKTOP: Generous padding for better spacing */
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* DESKTOP: Perfect grid alignment */
+            gap: 2.5rem; /* DESKTOP: Optimal gap between cards */
             justify-items: center;
             align-items: start;
         }
         
-        /* Card Container */
+        /* ===== DESKTOP CARD CONTAINER - ENHANCED SIZING ===== */
         .card-container {
             perspective: 1000px;
             width: 100%;
-            max-width: 350px;
+            max-width: 350px; /* DESKTOP: Larger cards for better display */
             aspect-ratio: 9/16;
             position: relative;
         }
         
-        /* Card */
+        /* ===== DESKTOP CARD STYLES - IMPROVED SHADOWS AND BORDERS ===== */
         .card {
             width: 100%;
             height: 100%;
@@ -131,9 +192,9 @@
             border: none;
             background: none;
             padding: 0;
-            border-radius: 20px;
+            border-radius: 20px; /* DESKTOP: Larger border radius for modern look */
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4); /* DESKTOP: Enhanced shadow depth */
         }
         
         .card:focus {
@@ -182,6 +243,7 @@
             opacity: 1;
         }
 
+        /* DESKTOP: Enhanced hover effect */
         .card-container:hover .card {
             transform: scale(1.05);
         }
@@ -251,41 +313,50 @@
             z-index: 10;
         }
 
+        /* ===== ENHANCED DESCRIPTION OVERLAY WITH PERSONALITY TRAITS ===== */
         .card-description-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85); /* DESKTOP: Darker overlay for better readability */
             color: white;
-            padding: 1.5rem;
-            text-align: center;
+            padding: 1.5rem; /* DESKTOP: More generous padding */
+            text-align: left; /* LEFT ALIGNED: As requested */
             opacity: 0;
             transform: translateY(100%);
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             pointer-events: none;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-start;
             font-family: 'MedievalSharp', cursive;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
             z-index: 5;
         }
 
-        .overlay-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: white;
+        /* PERSONALITY HASHTAGS STYLING */
+        .personality-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .personality-tag {
+            font-size: 0.85rem; /* HASHTAG: Different font size for better UX */
+            font-weight: 500;
+            color: #4ECDC4; /* HASHTAG: Teal color for hashtags */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* HASHTAG: Different font family */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         .overlay-description {
-            font-size: 1.1rem;
+            font-size: 1rem; /* DESKTOP: Description font size */
             line-height: 1.4;
             color: white;
-            max-width: 90%;
+            font-style: italic;
         }
 
         .card-container:hover .card-description-overlay {
@@ -293,66 +364,101 @@
             transform: translateY(0);
         }
         
-        /* Tablet Responsive Design */
+        /* ===== TABLET RESPONSIVE DESIGN (768px - 1024px) ===== */
         @media (max-width: 1024px) {
             .gallery {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2rem;
-                padding: 2rem 1.5rem;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* TABLET: Adjusted grid columns */
+                gap: 2rem; /* TABLET: Reduced gap for medium screens */
+                padding: 2rem 1.5rem; /* TABLET: Reduced padding */
                 max-width: 1200px;
             }
             
             .card-container {
-                max-width: 320px;
+                max-width: 320px; /* TABLET: Smaller max card width */
+            }
+            
+            .controls {
+                top: 1.5rem; /* TABLET: Adjusted controls position */
+                right: 1.5rem;
             }
             
             .animate-all-btn {
-                top: 1.5rem;
-                right: 1.5rem;
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem; /* TABLET: Smaller button padding */
+                font-size: 0.9rem; /* TABLET: Smaller button font */
+            }
+            
+            .lang-option {
+                padding: 0.3rem 0.6rem; /* TABLET: Smaller language toggle */
+                font-size: 0.8rem;
             }
         }
         
-        /* Mobile Responsive Design - Instagram Style */
+        /* ===== MOBILE RESPONSIVE DESIGN - INSTAGRAM STYLE (≤768px) ===== */
         @media (max-width: 768px) {
             body {
-                background: #000;
+                background: #000; /* MOBILE: Pure black background for Instagram feel */
             }
             
+            /* MOBILE: Fixed header at top */
             .header {
-                padding: 1rem;
+                padding: 1rem; /* MOBILE: Reduced header padding */
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
-                background: rgba(0, 0, 0, 0.9);
+                background: rgba(0, 0, 0, 0.9); /* MOBILE: Semi-transparent header background */
                 backdrop-filter: blur(10px);
                 z-index: 100;
             }
             
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem; /* MOBILE: Smaller title font */
+                margin-bottom: 0.5rem;
+            }
+            
+            .guidelines {
+                font-size: 0.85rem; /* MOBILE: Smaller guidelines font */
                 margin-bottom: 0;
+                line-height: 1.6; /* MOBILE: Tighter line height */
+                padding-left: 1rem; /* MOBILE INDENTED: Smaller left padding for mobile */
+            }
+            
+            .guidelines div {
+                margin-bottom: 0.3rem; /* MOBILE: Smaller spacing between lines */
+                flex-direction: row; /* MOBILE: Keep horizontal layout */
+                gap: 0.3rem; /* MOBILE: Smaller gap */
+                justify-content: flex-start; /* MOBILE: Maintain left alignment */
+            }
+            
+            /* MOBILE: Smaller controls */
+            .controls {
+                top: 1rem; /* MOBILE: Adjusted controls position */
+                right: 1rem;
+                gap: 0.5rem;
             }
             
             .animate-all-btn {
-                top: 1rem;
-                right: 1rem;
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
+                padding: 0.5rem 1rem; /* MOBILE: Smaller button padding */
+                font-size: 0.8rem; /* MOBILE: Smaller button font */
             }
             
+            .lang-option {
+                padding: 0.25rem 0.5rem; /* MOBILE: Tiny language toggle */
+                font-size: 0.7rem;
+            }
+            
+            /* MOBILE: Instagram-style vertical layout */
             .gallery {
-                display: block;
-                padding: 0;
-                margin-top: 80px;
+                display: block; /* MOBILE: Block layout instead of grid */
+                padding: 0; /* MOBILE: No padding for full-width cards */
+                margin-top: 120px; /* MOBILE: Account for larger fixed header */
                 max-width: 100%;
             }
             
+            /* MOBILE: Full-screen card containers */
             .card-container {
-                width: 100vw;
-                height: 100vh;
+                width: 100vw; /* MOBILE: Full viewport width */
+                height: 100vh; /* MOBILE: Full viewport height */
                 max-width: none;
                 aspect-ratio: unset;
                 margin: 0;
@@ -360,81 +466,101 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 1rem;
+                padding: 0.5rem; /* MOBILE: FIXED - Reduced from 1rem to minimize padding */
             }
             
+            /* MOBILE: Optimized card sizing */
             .card {
                 width: 100%;
-                height: 85vh;
+                height: 90vh; /* MOBILE: FIXED - Increased from 85vh to show more card content */
                 max-width: 400px;
-                border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+                border-radius: 15px; /* MOBILE: Smaller border radius */
+                box-shadow: 0 10px 30px rgba(0,0,0,0.6); /* MOBILE: Enhanced shadow */
             }
             
             .card-face {
-                border-radius: 15px;
+                border-radius: 15px; /* MOBILE: Match card border radius */
             }
             
+            /* MOBILE: Disable hover transform */
             .card-container:hover .card {
                 transform: none;
             }
             
+            /* MOBILE: Always visible description overlay */
             .card-description-overlay {
-                padding: 1rem;
+                padding: 1rem; /* MOBILE: Reduced overlay padding */
                 border-bottom-left-radius: 15px;
                 border-bottom-right-radius: 15px;
-                opacity: 1;
-                transform: translateY(0);
-                background: rgba(0, 0, 0, 0.7);
+                opacity: 1; /* MOBILE: Always visible */
+                transform: translateY(0); /* MOBILE: Always visible */
+                background: rgba(0, 0, 0, 0.8); /* MOBILE: Semi-transparent overlay */
                 position: absolute;
                 bottom: 0;
             }
             
-            .overlay-title {
-                font-size: 1.4rem;
+            .personality-tag {
+                font-size: 0.75rem; /* MOBILE: Smaller hashtag font */
             }
             
             .overlay-description {
-                font-size: 1rem;
+                font-size: 0.9rem; /* MOBILE: Adjusted description font size */
             }
             
-            /* Disable hover effects on mobile */
+            /* MOBILE: Ensure overlay stays visible on hover */
             .card-container:hover .card-description-overlay {
                 opacity: 1;
                 transform: translateY(0);
             }
             
-            /* Smooth scroll snapping for Instagram-like experience */
+            /* MOBILE: Instagram-style smooth scroll snapping */
             .gallery {
-                scroll-snap-type: y mandatory;
+                scroll-snap-type: y mandatory; /* MOBILE: Snap scrolling for Instagram feel */
                 overflow-y: auto;
                 height: 100vh;
             }
             
             .card-container {
-                scroll-snap-align: start;
-                scroll-snap-stop: always;
+                scroll-snap-align: start; /* MOBILE: Snap each card to start */
+                scroll-snap-stop: always; /* MOBILE: Force stop at each card */
             }
         }
         
-        /* Extra small mobile devices */
+        /* ===== EXTRA SMALL MOBILE DEVICES (≤480px) ===== */
         @media (max-width: 480px) {
             .card {
-                height: 80vh;
-                max-width: 350px;
+                height: 85vh; /* SMALL MOBILE: FIXED - Increased from 80vh for better visibility */
+                max-width: 350px; /* SMALL MOBILE: Slightly smaller max width */
             }
             
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem; /* SMALL MOBILE: Even smaller title */
+            }
+            
+            .guidelines {
+                font-size: 0.8rem; /* SMALL MOBILE: Tiny guidelines font */
+                line-height: 1.5; /* SMALL MOBILE: Even tighter line height */
+                padding-left: 0.5rem; /* SMALL MOBILE INDENTED: Minimal left padding for tiny screens */
+            }
+            
+            .guidelines div {
+                margin-bottom: 0.2rem; /* SMALL MOBILE: Minimal spacing */
+                gap: 0.2rem; /* SMALL MOBILE: Tiny gap */
+                justify-content: flex-start; /* SMALL MOBILE: Maintain left alignment */
             }
             
             .animate-all-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem; /* SMALL MOBILE: Tiny button padding */
+                font-size: 0.7rem; /* SMALL MOBILE: Tiny button font */
+            }
+            
+            .lang-option {
+                padding: 0.2rem 0.4rem; /* SMALL MOBILE: Micro language toggle */
+                font-size: 0.65rem;
             }
         }
         
-        /* Reduced Motion */
+        /* ===== REDUCED MOTION ACCESSIBILITY ===== */
         @media (prefers-reduced-motion: reduce) {
             .card {
                 transition: none;
@@ -457,38 +583,140 @@
             }
         }
         
-        /* Landscape mobile orientation */
+        /* ===== LANDSCAPE MOBILE ORIENTATION ===== */
         @media (max-width: 768px) and (orientation: landscape) {
             .card-container {
-                height: 100vh;
-                padding: 0.5rem;
+                height: 100vh; /* LANDSCAPE MOBILE: Full height */
+                padding: 0.5rem; /* LANDSCAPE MOBILE: Minimal padding */
             }
             
             .card {
-                height: 90vh;
-                max-width: 60vh;
+                height: 90vh; /* LANDSCAPE MOBILE: Optimized height */
+                max-width: 60vh; /* LANDSCAPE MOBILE: Width based on viewport height */
             }
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <button class="animate-all-btn" id="animateAllBtn">Animate All</button>
-        <h1>ANIMA Card Gallery</h1>
+        <div class="controls">
+            <button class="animate-all-btn" id="animateAllBtn" data-en="Animate All" data-ko="모두 재생">Animate All</button>
+            <div class="language-toggle">
+                <div class="lang-option active" data-lang="en">EN</div>
+                <div class="lang-option" data-lang="ko">한국어</div>
+            </div>
+        </div>
+        <h1 data-en="ANIMA Card Gallery" data-ko="ANIMA 카드 갤러리">ANIMA Card Gallery</h1>
+        <!-- 
+        INDENTATION GUIDE: To adjust the guidelines indentation, modify the CSS:
+        
+        Desktop: .guidelines { padding-left: 2rem; }  <- Change 2rem to increase/decrease indent
+        Mobile:  .guidelines { padding-left: 1rem; }  <- Change 1rem for mobile indent
+        Small:   .guidelines { padding-left: 0.5rem; } <- Change 0.5rem for small screens
+        
+        Examples:
+        - More indent: padding-left: 3rem; (48px)
+        - Less indent: padding-left: 1rem; (16px)
+        - No indent: padding-left: 0; (0px)
+        -->
+        <div class="guidelines" id="guidelines">
+            <div>🖱️ <span class="highlight">Hover</span> over cards to discover personalities</div>
+            <div>👆 <span class="highlight">Click</span> to bring them to life!</div>
+            <div>🔄 <span class="highlight">Scroll</span> to explore more characters</div>
+        </div>
     </header>
     
     <main class="gallery" id="gallery">
         <div class="loading">
             <div class="spinner"></div>
-            Loading cards...
+            <span data-en="Loading cards..." data-ko="카드 로딩 중...">Loading cards...</span>
         </div>
     </main>
     
     <script>
+        // Enhanced card data with personality traits - MOVED TO TOP FOR PROPER SCOPING
+        const enhancedCardData = {
+            'loine': { // FIXED: Changed from 'lione' to 'loine' to match cards.json slug
+                tags: ['#Brave', '#Hero', '#Justice', '#Protector'],
+                desc: 'A fierce guardian with an unbreakable moral compass, never backing down from injustice.',
+                tags_ko: ['#용감한', '#영웅', '#정의로운', '#수호자'],
+                desc_ko: '불굴의 도덕적 나침반을 가진 용맹한 수호자, 불의 앞에서 절대 물러서지 않는다.'
+            },
+            'quiet': {
+                tags: ['#Thoughtful', '#Wise', '#Introverted', '#Analytical'],
+                desc: 'A contemplative soul who finds wisdom in silence and strength in solitude.',
+                tags_ko: ['#사려깊은', '#현명한', '#내향적', '#분석적'],
+                desc_ko: '침묵 속에서 지혜를 찾고 고독 속에서 힘을 얻는 사색적인 영혼.'
+            },
+            'artfox': {
+                tags: ['#Creative', '#Eccentric', '#Artful', '#Extroverted'],
+                desc: 'A mischievous artist who paints the world with imagination and boundless creativity.',
+                tags_ko: ['#창조적', '#독특한', '#예술적', '#외향적'],
+                desc_ko: '상상력과 무한한 창의성으로 세상을 그려내는 장난스러운 예술가.'
+            },
+            'echo': {
+                tags: ['#Mystical', '#Empathetic', '#Intuitive', '#Sensitive'],
+                desc: 'A gentle spirit who reflects the emotions of the forest and whispers ancient secrets.',
+                tags_ko: ['#신비로운', '#공감적', '#직관적', '#민감한'],
+                desc_ko: '숲의 감정을 반영하고 고대의 비밀을 속삭이는 온화한 영혼.'
+            },
+            'ember': {
+                tags: ['#Passionate', '#Fierce', '#Determined', '#Charismatic'],
+                desc: 'A fiery sorceress whose burning passion ignites transformation and change.',
+                tags_ko: ['#열정적', '#격렬한', '#결단력있는', '#카리스마적'],
+                desc_ko: '불타는 열정으로 변화와 전환을 점화시키는 화염의 마법사.'
+            },
+            'lumine': {
+                tags: ['#Radiant', '#Optimistic', '#Inspiring', '#Warm'],
+                desc: 'A luminous being who illuminates the darkest paths with hope and gentle guidance.',
+                tags_ko: ['#빛나는', '#낙관적', '#영감적', '#따뜻한'],
+                desc_ko: '희망과 부드러운 인도로 가장 어두운 길을 밝혀주는 빛나는 존재.'
+            },
+            'sprout': {
+                tags: ['#Growing', '#Curious', '#Hopeful', '#Adaptable'],
+                desc: 'A budding life filled with endless potential and the promise of beautiful growth.',
+                tags_ko: ['#성장하는', '#호기심많은', '#희망적', '#적응적'],
+                desc_ko: '무한한 잠재력과 아름다운 성장의 약속으로 가득 찬 새싹 같은 생명.'
+            },
+            'wisp': {
+                tags: ['#Ethereal', '#Gentle', '#Mysterious', '#Peaceful'],
+                desc: 'A serene guide who dances between worlds, bringing tranquility to troubled hearts.',
+                tags_ko: ['#영묘한', '#온화한', '#신비로운', '#평화로운'],
+                desc_ko: '세계 사이를 춤추며 troubled hearts에 평온을 가져다주는 고요한 안내자.'
+            }
+        };
+        
         // Global variables
         let cardsData = [];
         let currentFocusedCard = null;
         let allCardsAnimated = false;
+        let currentLanguage = 'en';
+        
+        // Language translations
+        const translations = {
+            en: {
+                title: "ANIMA Card Gallery",
+                guidelines: `
+                    <div>🖱️ <span class='highlight'>Hover</span> over cards to discover personalities</div>
+                    <div>👆 <span class='highlight'>Click</span> to bring them to life!</div>
+                    <div>🔄 <span class='highlight'>Scroll</span> to explore more characters</div>
+                `,
+                animateAll: "Animate All",
+                pauseAll: "Pause All",
+                loading: "Loading cards..."
+            },
+            ko: {
+                title: "ANIMA 카드 갤러리",
+                guidelines: `
+                    <div>🖱️ 카드에 <span class='highlight'>마우스를 올려</span> 성격을 발견하세요</div>
+                    <div>👆 <span class='highlight'>클릭</span>하여 생동감을 불어넣으세요!</div>
+                    <div>🔄 <span class='highlight'>스크롤</span>하여 더 많은 캐릭터를 탐험하세요</div>
+                `,
+                animateAll: "모두 재생",
+                pauseAll: "모두 정지",
+                loading: "카드 로딩 중..."
+            }
+        };
         
         // Initialize the application
         async function init() {
@@ -496,6 +724,7 @@
                 await loadCards();
                 renderCards();
                 setupAnimateAllButton();
+                setupLanguageToggle();
                 handleDeepLink();
                 setupEventListeners();
             } catch (error) {
@@ -530,6 +759,50 @@
             animateAllBtn.addEventListener('click', toggleAnimateAll);
         }
         
+        // Setup language toggle
+        function setupLanguageToggle() {
+            const langOptions = document.querySelectorAll('.lang-option');
+            langOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const lang = option.dataset.lang;
+                    switchLanguage(lang);
+                });
+            });
+        }
+        
+        // Switch language
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active language option
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.lang === lang);
+            });
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-en]').forEach(element => {
+                const key = element.dataset[lang];
+                if (key) {
+                    element.innerHTML = key;
+                }
+            });
+            
+            // Update guidelines with new format
+            const guidelinesElement = document.getElementById('guidelines');
+            guidelinesElement.innerHTML = translations[lang].guidelines;
+            
+            // Update animate button text
+            const animateBtn = document.getElementById('animateAllBtn');
+            if (allCardsAnimated) {
+                animateBtn.textContent = translations[lang].pauseAll;
+            } else {
+                animateBtn.textContent = translations[lang].animateAll;
+            }
+            
+            // Re-render cards to update descriptions
+            renderCards();
+        }
+        
         // Toggle animate all cards
         function toggleAnimateAll() {
             const animateAllBtn = document.getElementById('animateAllBtn');
@@ -542,7 +815,7 @@
                     card.setAttribute('aria-pressed', 'false');
                 });
                 
-                animateAllBtn.textContent = 'Animate All';
+                animateAllBtn.textContent = translations[currentLanguage].animateAll;
                 animateAllBtn.classList.remove('active');
                 allCardsAnimated = false;
                 currentFocusedCard = null;
@@ -556,7 +829,7 @@
                     card.setAttribute('aria-pressed', 'true');
                 });
                 
-                animateAllBtn.textContent = 'Pause All';
+                animateAllBtn.textContent = translations[currentLanguage].pauseAll;
                 animateAllBtn.classList.add('active');
                 allCardsAnimated = true;
                 currentFocusedCard = null; // Clear individual focus when all are animated
@@ -598,21 +871,42 @@
             
             button.appendChild(front);
 
+            // Enhanced description overlay with personality traits
             const descriptionOverlay = document.createElement("div");
             descriptionOverlay.className = "card-description-overlay";
 
-            const overlayTitle = document.createElement("span");
-            overlayTitle.className = "overlay-title";
-            overlayTitle.textContent = card.title;
+            // Get enhanced data for this card
+            const enhancedData = enhancedCardData[card.slug];
+            
+            if (enhancedData) {
+                // Create personality tags
+                const tagsContainer = document.createElement("div");
+                tagsContainer.className = "personality-tags";
+                
+                const tags = currentLanguage === 'ko' ? enhancedData.tags_ko : enhancedData.tags;
+                tags.forEach(tag => {
+                    const tagElement = document.createElement("span");
+                    tagElement.className = "personality-tag";
+                    tagElement.textContent = tag;
+                    tagsContainer.appendChild(tagElement);
+                });
+                
+                // Create description
+                const descElement = document.createElement("div");
+                descElement.className = "overlay-description";
+                descElement.textContent = currentLanguage === 'ko' ? enhancedData.desc_ko : enhancedData.desc;
+                
+                descriptionOverlay.appendChild(tagsContainer);
+                descriptionOverlay.appendChild(descElement);
+            } else {
+                // FALLBACK: If no enhanced data, show original description
+                const fallbackDesc = document.createElement("div");
+                fallbackDesc.className = "overlay-description";
+                fallbackDesc.textContent = card.desc;
+                descriptionOverlay.appendChild(fallbackDesc);
+            }
 
-            const overlayDescription = document.createElement("span");
-            overlayDescription.className = "overlay-description";
-            overlayDescription.textContent = card.desc;
-
-            descriptionOverlay.appendChild(overlayTitle);
-            descriptionOverlay.appendChild(overlayDescription);
             button.appendChild(descriptionOverlay);
-
             container.appendChild(button);
             
             // Add event listeners
@@ -719,7 +1013,7 @@
                 });
                 
                 // Reset animate all button
-                animateAllBtn.textContent = 'Animate All';
+                animateAllBtn.textContent = translations[currentLanguage].animateAll;
                 animateAllBtn.classList.remove('active');
                 allCardsAnimated = false;
             }
@@ -762,7 +1056,7 @@
             // If all cards were animated, reset the animate all state
             if (allCardsAnimated) {
                 const animateAllBtn = document.getElementById('animateAllBtn');
-                animateAllBtn.textContent = 'Animate All';
+                animateAllBtn.textContent = translations[currentLanguage].animateAll;
                 animateAllBtn.classList.remove('active');
                 allCardsAnimated = false;
             }
