@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANIMA Card Gallery</title>
-    <meta name="description" content="Explore a collection of 8 beautiful art cards with interactive 3D effects and immersive experiences.">
+    <title>ANIMA 카드 갤러리</title>
+    <meta name="description" content="인터랙티브 3D 효과와 몰입감 있는 경험을 제공하는 9개의 아름다운 아트 카드 컬렉션을 탐험해보세요.">
     
     <!-- Open Graph tags -->
-    <meta property="og:title" content="ANIMA Card Gallery">
-    <meta property="og:description" content="Explore a collection of 8 beautiful art cards with interactive 3D effects and immersive experiences.">
+    <meta property="og:title" content="ANIMA 카드 갤러리">
+    <meta property="og:description" content="인터랙티브 3D 효과와 몰입감 있는 경험을 제공하는 9개의 아름다운 아트 카드 컬렉션을 탐험해보세요.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
     
     <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +43,30 @@
             overflow-x: hidden;
         }
         
+        /* ===== COMPANY LOGO STYLES ===== */
+        .company-logo {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 101;
+            width: 50px; /* LOGO SIZE: Adjust this value to change logo size */
+            height: 50px;
+            opacity: 0.9;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .company-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .company-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.1) contrast(1.1); /* Enhance visibility on dark background */
+        }
+        
         /* ===== DESKTOP HEADER STYLES ===== */
         .header {
             text-align: center;
@@ -48,7 +76,7 @@
             z-index: 100;
         }
         
-        /* ===== CONTROL BUTTONS CONTAINER ===== */
+        /* ===== CONTROL BUTTONS CONTAINER - REORDERED ===== */
         .controls {
             position: absolute;
             top: 2rem;
@@ -59,39 +87,7 @@
             z-index: 101;
         }
         
-        /* ===== DESKTOP ANIMATE BUTTON STYLES ===== */
-        .animate-all-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-family: 'MedievalSharp', cursive;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-        
-        .animate-all-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        
-        .animate-all-btn:active {
-            transform: translateY(0);
-        }
-        
-        .animate-all-btn.active {
-            background: rgba(255, 100, 100, 0.3);
-            border-color: rgba(255, 100, 100, 0.6);
-        }
-        
-        /* ===== LANGUAGE TOGGLE SWITCH ===== */
+        /* ===== LANGUAGE TOGGLE SWITCH - UPDATED FOR KOREAN DEFAULT ===== */
         .language-toggle {
             display: flex;
             align-items: center;
@@ -102,6 +98,7 @@
             padding: 0.5rem;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            order: 1; /* REORDERED: Language toggle first */
         }
         
         .language-toggle:hover {
@@ -124,6 +121,132 @@
             background: rgba(255, 255, 255, 0.2);
             color: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* ===== MINIMALISTIC MUSIC PLAYER STYLES ===== */
+        .music-player {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.6rem 1rem;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 0.8rem;
+            order: 2; /* REORDERED: Music player second */
+            min-width: 80px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .music-player:hover {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .bgm-indicator {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .bgm-indicator::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background: #4ECDC4;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .bgm-indicator.muted::after {
+            background: rgba(255, 255, 255, 0.3);
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: translateY(-50%) scale(1); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+        
+        .music-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            padding: 0.4rem;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            position: relative;
+        }
+        
+        .music-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .music-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .music-btn.muted {
+            color: rgba(255, 100, 100, 0.8);
+        }
+        
+        .music-btn.muted:hover {
+            color: rgba(255, 100, 100, 1);
+            background: rgba(255, 100, 100, 0.1);
+        }
+        
+        /* ===== DESKTOP ANIMATE BUTTON STYLES ===== */
+        .animate-all-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            order: 3; /* REORDERED: Animate button third */
+        }
+        
+        .animate-all-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .animate-all-btn:active {
+            transform: translateY(0);
+        }
+        
+        .animate-all-btn.active {
+            background: rgba(255, 100, 100, 0.3);
+            border-color: rgba(255, 100, 100, 0.6);
         }
         
         .header h1 {
@@ -391,12 +514,35 @@
                 padding: 0.3rem 0.6rem; /* TABLET: Smaller language toggle */
                 font-size: 0.8rem;
             }
+            
+            .music-player {
+                padding: 0.5rem 0.8rem; /* TABLET: Smaller padding */
+                gap: 0.6rem;
+            }
+            
+            .bgm-indicator {
+                font-size: 0.7rem; /* TABLET: Smaller BGM text */
+            }
+            
+            .music-btn {
+                width: 24px; /* TABLET: Smaller music button */
+                height: 24px;
+                font-size: 0.8rem;
+            }
         }
         
         /* ===== MOBILE RESPONSIVE DESIGN - INSTAGRAM STYLE (≤768px) ===== */
         @media (max-width: 768px) {
             body {
                 background: #000; /* MOBILE: Pure black background for Instagram feel */
+            }
+            
+            /* MOBILE: Smaller company logo */
+            .company-logo {
+                top: 1rem; /* MOBILE: Adjusted position */
+                left: 1rem;
+                width: 35px; /* MOBILE: Smaller logo size */
+                height: 35px;
             }
             
             /* MOBILE: Fixed header at top */
@@ -447,11 +593,27 @@
                 font-size: 0.7rem;
             }
             
+            .music-player {
+                padding: 0.4rem 0.6rem; /* MOBILE: Compact padding */
+                gap: 0.5rem;
+                min-width: 60px;
+            }
+            
+            .bgm-indicator {
+                font-size: 0.65rem; /* MOBILE: Tiny BGM text */
+            }
+            
+            .music-btn {
+                width: 20px; /* MOBILE: Tiny music button */
+                height: 20px;
+                font-size: 0.7rem;
+            }
+            
             /* MOBILE: Instagram-style vertical layout */
             .gallery {
                 display: block; /* MOBILE: Block layout instead of grid */
                 padding: 0; /* MOBILE: No padding for full-width cards */
-                margin-top: 120px; /* MOBILE: Account for larger fixed header */
+                margin-top: 100px; /* MOBILE POSITIONING: ADJUST THIS VALUE TO MOVE CARDS UP/DOWN (currently 100px from top) */
                 max-width: 100%;
             }
             
@@ -466,13 +628,13 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 0.5rem; /* MOBILE: FIXED - Reduced from 1rem to minimize padding */
+                padding: 1rem; /* MOBILE CARD PADDING: ADJUST THIS VALUE TO CHANGE CARD MARGINS (currently 1rem = 16px) */
             }
             
             /* MOBILE: Optimized card sizing */
             .card {
                 width: 100%;
-                height: 90vh; /* MOBILE: FIXED - Increased from 85vh to show more card content */
+                height: 85vh; /* MOBILE CARD HEIGHT: ADJUST THIS VALUE TO CHANGE CARD SIZE (currently 85% of viewport height) */
                 max-width: 400px;
                 border-radius: 15px; /* MOBILE: Smaller border radius */
                 box-shadow: 0 10px 30px rgba(0,0,0,0.6); /* MOBILE: Enhanced shadow */
@@ -482,21 +644,22 @@
                 border-radius: 15px; /* MOBILE: Match card border radius */
             }
             
-            /* MOBILE: Disable hover transform */
-            .card-container:hover .card {
-                transform: none;
+            /* MOBILE: Enable tilt effects for touch devices */
+            .card-container .card {
+                transition: transform 0.1s ease-out;
             }
             
-            /* MOBILE: Always visible description overlay */
+            /* MOBILE: Description overlay - HIDDEN BY DEFAULT */
             .card-description-overlay {
                 padding: 1rem; /* MOBILE: Reduced overlay padding */
                 border-bottom-left-radius: 15px;
                 border-bottom-right-radius: 15px;
-                opacity: 1; /* MOBILE: Always visible */
-                transform: translateY(0); /* MOBILE: Always visible */
-                background: rgba(0, 0, 0, 0.8); /* MOBILE: Semi-transparent overlay */
+                opacity: 0; /* MOBILE: HIDDEN BY DEFAULT - only shows on touch/hold */
+                transform: translateY(100%); /* MOBILE: HIDDEN BY DEFAULT */
+                background: rgba(0, 0, 0, 0.9); /* MOBILE: Darker overlay for better readability */
                 position: absolute;
                 bottom: 0;
+                transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
             }
             
             .personality-tag {
@@ -507,10 +670,16 @@
                 font-size: 0.9rem; /* MOBILE: Adjusted description font size */
             }
             
-            /* MOBILE: Ensure overlay stays visible on hover */
-            .card-container:hover .card-description-overlay {
+            /* MOBILE: Show overlay on touch/hold - will be controlled by JavaScript */
+            .card-container.touch-active .card-description-overlay {
                 opacity: 1;
                 transform: translateY(0);
+            }
+            
+            /* MOBILE: Hide overlay when card is animated */
+            .card.animated ~ .card-description-overlay {
+                opacity: 0 !important;
+                transform: translateY(100%) !important;
             }
             
             /* MOBILE: Instagram-style smooth scroll snapping */
@@ -528,8 +697,24 @@
         
         /* ===== EXTRA SMALL MOBILE DEVICES (≤480px) ===== */
         @media (max-width: 480px) {
+            /* SMALL MOBILE: Even smaller company logo */
+            .company-logo {
+                top: 0.8rem; /* SMALL MOBILE: Adjusted position */
+                left: 0.8rem;
+                width: 30px; /* SMALL MOBILE: Micro logo size */
+                height: 30px;
+            }
+            
+            .gallery {
+                margin-top: 90px; /* SMALL MOBILE POSITIONING: ADJUST THIS VALUE (currently 90px from top) */
+            }
+            
+            .card-container {
+                padding: 0.8rem; /* SMALL MOBILE PADDING: ADJUST THIS VALUE (currently 0.8rem = 12.8px) */
+            }
+            
             .card {
-                height: 85vh; /* SMALL MOBILE: FIXED - Increased from 80vh for better visibility */
+                height: 80vh; /* SMALL MOBILE CARD HEIGHT: ADJUST THIS VALUE (currently 80% of viewport height) */
                 max-width: 350px; /* SMALL MOBILE: Slightly smaller max width */
             }
             
@@ -556,6 +741,22 @@
             
             .lang-option {
                 padding: 0.2rem 0.4rem; /* SMALL MOBILE: Micro language toggle */
+                font-size: 0.65rem;
+            }
+            
+            .music-player {
+                padding: 0.3rem 0.5rem; /* SMALL MOBILE: Micro padding */
+                gap: 0.4rem;
+                min-width: 50px;
+            }
+            
+            .bgm-indicator {
+                font-size: 0.6rem; /* SMALL MOBILE: Micro BGM text */
+            }
+            
+            .music-btn {
+                width: 18px; /* SMALL MOBILE: Micro music button */
+                height: 18px;
                 font-size: 0.65rem;
             }
         }
@@ -585,104 +786,118 @@
         
         /* ===== LANDSCAPE MOBILE ORIENTATION ===== */
         @media (max-width: 768px) and (orientation: landscape) {
+            .gallery {
+                margin-top: 80px; /* LANDSCAPE POSITIONING: ADJUST THIS VALUE */
+            }
+            
             .card-container {
                 height: 100vh; /* LANDSCAPE MOBILE: Full height */
                 padding: 0.5rem; /* LANDSCAPE MOBILE: Minimal padding */
             }
             
             .card {
-                height: 90vh; /* LANDSCAPE MOBILE: Optimized height */
+                height: 85vh; /* LANDSCAPE MOBILE: Optimized height */
                 max-width: 60vh; /* LANDSCAPE MOBILE: Width based on viewport height */
             }
         }
     </style>
-</head>
+    </head>
 <body>
+    <!-- COMPANY LOGO - TOP LEFT -->
+    <div class="company-logo">
+        <img src="favicon.ico" alt="Company Logo" title="ANIMA">
+    </div>
+    
     <header class="header">
         <div class="controls">
-            <button class="animate-all-btn" id="animateAllBtn" data-en="Animate All" data-ko="모두 재생">Animate All</button>
+            <!-- UPDATED: Korean as default language -->
             <div class="language-toggle">
-                <div class="lang-option active" data-lang="en">EN</div>
-                <div class="lang-option" data-lang="ko">한국어</div>
+                <div class="lang-option active" data-lang="ko">한국어</div>
+                <div class="lang-option" data-lang="en">EN</div>
             </div>
+            
+            <!-- Minimalistic Music Player -->
+            <div class="music-player">
+                <div class="bgm-indicator" id="bgmIndicator">BGM</div>
+                <button class="music-btn" id="muteBtn" title="배경음악 음소거/해제">
+                    <span id="muteIcon">🔊</span>
+                </button>
+            </div>
+            
+            <!-- Animate All button -->
+            <button class="animate-all-btn" id="animateAllBtn" data-en="Animate All" data-ko="모두 재생">모두 재생</button>
         </div>
-        <h1 data-en="ANIMA Card Gallery" data-ko="ANIMA 카드 갤러리">ANIMA Card Gallery</h1>
-        <!-- 
-        INDENTATION GUIDE: To adjust the guidelines indentation, modify the CSS:
         
-        Desktop: .guidelines { padding-left: 2rem; }  <- Change 2rem to increase/decrease indent
-        Mobile:  .guidelines { padding-left: 1rem; }  <- Change 1rem for mobile indent
-        Small:   .guidelines { padding-left: 0.5rem; } <- Change 0.5rem for small screens
-        
-        Examples:
-        - More indent: padding-left: 3rem; (48px)
-        - Less indent: padding-left: 1rem; (16px)
-        - No indent: padding-left: 0; (0px)
-        -->
+        <h1 data-en="ANIMA Card Gallery" data-ko="ANIMA 카드 갤러리">ANIMA 카드 갤러리</h1>
         <div class="guidelines" id="guidelines">
-            <div>🖱️ <span class="highlight">Hover</span> over cards to discover personalities</div>
-            <div>👆 <span class="highlight">Click</span> to bring them to life!</div>
-            <div>🔄 <span class="highlight">Scroll</span> to explore more characters</div>
+            <div>🖱️ 카드에 <span class="highlight">마우스를 올려</span> 성격을 발견하세요</div>
+            <div>👆 <span class="highlight">클릭</span>하여 생동감을 불어넣으세요!</div>
         </div>
     </header>
+    
+    <!-- HIDDEN AUDIO ELEMENT FOR BGM -->
+    <audio id="bgmAudio" loop preload="auto">
+        <source src="music/bgm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     
     <main class="gallery" id="gallery">
         <div class="loading">
             <div class="spinner"></div>
-            <span data-en="Loading cards..." data-ko="카드 로딩 중...">Loading cards...</span>
+            <span data-en="Loading cards..." data-ko="카드 로딩 중...">카드 로딩 중...</span>
         </div>
     </main>
     
     <script>
-        // Enhanced card data with personality traits - MOVED TO TOP FOR PROPER SCOPING
+        // Enhanced card data with personality traits - UPDATED WITH USER'S VERSION
         const enhancedCardData = {
-            'loine': { // FIXED: Changed from 'lione' to 'loine' to match cards.json slug
+            'loine': { // ENFJ - The Protagonist (Natural Leader)
                 tags: ['#Brave', '#Hero', '#Justice', '#Protector'],
                 desc: 'A fierce guardian with an unbreakable moral compass, never backing down from injustice.',
                 tags_ko: ['#용감한', '#영웅', '#정의로운', '#수호자'],
-                desc_ko: '불굴의 도덕적 나침반을 가진 용맹한 수호자, 불의 앞에서 절대 물러서지 않는다.'
+                desc_ko: '불굴의 도덕적 나침반을 가진 용맹한 수호자. \n옳은 일을 위해 싸울 누군가가 필요할 때 모두가 찾는 그 사람.'
             },
-            'quiet': {
+            'quiet': { // INTP - The Thinker (Analytical Observer)
                 tags: ['#Thoughtful', '#Wise', '#Introverted', '#Analytical'],
                 desc: 'A contemplative soul who finds wisdom in silence and strength in solitude.',
                 tags_ko: ['#사려깊은', '#현명한', '#내향적', '#분석적'],
-                desc_ko: '침묵 속에서 지혜를 찾고 고독 속에서 힘을 얻는 사색적인 영혼.'
+                desc_ko: '침묵 속에서 지혜를 찾고 고독 속에서 힘을 얻는 사색적인 영혼. \n 전화보다 문자를 선호하고 혼자만의 시간이 필요한 타입.'
             },
-            'artfox': {
+            'artfox': { // ENFP - The Campaigner (Creative Enthusiast)
                 tags: ['#Creative', '#Eccentric', '#Artful', '#Extroverted'],
                 desc: 'A mischievous artist who paints the world with imagination and boundless creativity.',
-                tags_ko: ['#창조적', '#독특한', '#예술적', '#외향적'],
-                desc_ko: '상상력과 무한한 창의성으로 세상을 그려내는 장난스러운 예술가.'
+                tags_ko: ['#창의적', '#유별난', '#예술적', '#외향적'],
+                desc_ko: '상상력과 무한한 창의성으로 세상을 그려내는 장난스러운 예술가. \n 방은 정리된 혼돈 상태이고 막판 영감으로 살아가는 타입.'
             },
-            'echo': {
+            'echo': { // INFP - The Mediator (Empathetic Dreamer)
                 tags: ['#Mystical', '#Empathetic', '#Intuitive', '#Sensitive'],
                 desc: 'A gentle spirit who reflects the emotions of the forest and whispers ancient secrets.',
                 tags_ko: ['#신비로운', '#공감적', '#직관적', '#민감한'],
-                desc_ko: '숲의 감정을 반영하고 고대의 비밀을 속삭이는 온화한 영혼.'
+                desc_ko: '숲의 감정을 이해하는 영혼. \n 당신이 말하기도 전에 뭔가 잘못됐다는 걸 항상 아는 타입.'
             },
-            'ember': {
+            'ember': { // ENTJ - The Commander (Ambitious Leader)
                 tags: ['#Passionate', '#Fierce', '#Determined', '#Charismatic'],
                 desc: 'A fiery sorceress whose burning passion ignites transformation and change.',
                 tags_ko: ['#열정적', '#격렬한', '#결단력있는', '#카리스마적'],
-                desc_ko: '불타는 열정으로 변화와 전환을 점화시키는 화염의 마법사.'
+                desc_ko: '불타는 열정으로 변화와 전환을 점화시키는 화염의 마법사. \n 모든 취미를 잠재적 부업으로 바꾸고 목소리 내는 걸 두려워하지 않는다.'
             },
-            'lumine': {
+            'lumine': { // ESFJ - The Consul (Supportive Optimist)
                 tags: ['#Radiant', '#Optimistic', '#Inspiring', '#Warm'],
                 desc: 'A luminous being who illuminates the darkest paths with hope and gentle guidance.',
                 tags_ko: ['#빛나는', '#낙관적', '#영감적', '#따뜻한'],
-                desc_ko: '희망과 부드러운 인도로 가장 어두운 길을 밝혀주는 빛나는 존재.'
+                desc_ko: '희망과 부드러운 인도로 가장 어두운 길을 밝혀주는 빛나는 존재. \n굿모닝 문자를 보내고 진심으로 "어떻게 지내?"라고 물으며 진짜 답변을 기대하는 사람.'
             },
-            'sprout': {
+            'sprout': { // ESFP - The Entertainer (Enthusiastic Explorer)
                 tags: ['#Growing', '#Curious', '#Hopeful', '#Adaptable'],
                 desc: 'A budding life filled with endless potential and the promise of beautiful growth.',
                 tags_ko: ['#성장하는', '#호기심많은', '#희망적', '#적응적'],
-                desc_ko: '무한한 잠재력과 아름다운 성장의 약속으로 가득 찬 새싹 같은 생명.'
+                desc_ko: '무한한 잠재력과 아름다운 성장의 약속으로 가득 찬 새싹 같은 생명. \n 그냥 어떻게 되는지 보자"라고 말하고 어떻게든 항상 잘 풀리는 타입.'
             },
-            'wisp': {
+            'wisp': { // ISFP - The Adventurer (Gentle Free Spirit)
                 tags: ['#Ethereal', '#Gentle', '#Mysterious', '#Peaceful'],
                 desc: 'A serene guide who dances between worlds, bringing tranquility to troubled hearts.',
                 tags_ko: ['#영묘한', '#온화한', '#신비로운', '#평화로운'],
-                desc_ko: '세계 사이를 춤추며 troubled hearts에 평온을 가져다주는 고요한 안내자.'
+                desc_ko: '세계 사이를 춤추며 불안한 마음에 평온을 가져다주는 고요한 안내자. \n 들어본 적 없는 인디 음악을 듣고 신비로운 분위기를 풍기는 타입.'
             },
             'coming-soon': {
                 tags: [''],
@@ -696,7 +911,16 @@
         let cardsData = [];
         let currentFocusedCard = null;
         let allCardsAnimated = false;
-        let currentLanguage = 'en';
+        let currentLanguage = 'ko'; // UPDATED: Korean as default language
+        
+        // Music player variables
+        let bgmAudio = null;
+        let isMuted = false;
+        
+        // Mobile touch variables
+        let touchStartTime = 0;
+        let touchHoldTimer = null;
+        let currentTouchCard = null;
         
         // Language translations
         const translations = {
@@ -705,7 +929,6 @@
                 guidelines: `
                     <div>🖱️ <span class='highlight'>Hover</span> over cards to discover personalities</div>
                     <div>👆 <span class='highlight'>Click</span> to bring them to life!</div>
-                    <div>🔄 <span class='highlight'>Scroll</span> to explore more characters</div>
                 `,
                 animateAll: "Animate All",
                 pauseAll: "Pause All",
@@ -716,7 +939,6 @@
                 guidelines: `
                     <div>🖱️ 카드에 <span class='highlight'>마우스를 올려</span> 성격을 발견하세요</div>
                     <div>👆 <span class='highlight'>클릭</span>하여 생동감을 불어넣으세요!</div>
-                    <div>🔄 <span class='highlight'>스크롤</span>하여 더 많은 캐릭터를 탐험하세요</div>
                 `,
                 animateAll: "모두 재생",
                 pauseAll: "모두 정지",
@@ -731,8 +953,10 @@
                 renderCards();
                 setupAnimateAllButton();
                 setupLanguageToggle();
+                setupMusicPlayer();
                 handleDeepLink();
                 setupEventListeners();
+                setupMobileTouchEffects(); // NEW: Setup mobile touch effects
             } catch (error) {
                 console.error('Failed to initialize:', error);
                 showError('Failed to load cards. Please refresh the page.');
@@ -776,6 +1000,178 @@
             });
         }
         
+        // Setup minimalistic music player
+        function setupMusicPlayer() {
+            bgmAudio = document.getElementById('bgmAudio');
+            const muteBtn = document.getElementById('muteBtn');
+            const bgmIndicator = document.getElementById('bgmIndicator');
+            
+            // Set initial volume for pleasant background ambiance
+            bgmAudio.volume = 0.25; // 25% volume for subtle background music
+            
+            // Mute/Unmute button
+            muteBtn.addEventListener('click', toggleMute);
+            
+            // Auto-start music when user first interacts with the page
+            const startMusic = () => {
+                bgmAudio.play().catch(error => {
+                    console.log('Auto-play prevented by browser:', error);
+                    // Music will start when user clicks mute button
+                });
+                // Remove the event listener after first interaction
+                document.removeEventListener('click', startMusic);
+                document.removeEventListener('touchstart', startMusic);
+            };
+            
+            // Listen for first user interaction to start music
+            document.addEventListener('click', startMusic);
+            document.addEventListener('touchstart', startMusic);
+            
+            // Update indicator when audio state changes
+            bgmAudio.addEventListener('play', updateBgmIndicator);
+            bgmAudio.addEventListener('pause', updateBgmIndicator);
+            bgmAudio.addEventListener('volumechange', updateBgmIndicator);
+        }
+        
+        // NEW: Setup mobile touch effects
+        function setupMobileTouchEffects() {
+            // Only setup on mobile devices
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                const cardContainers = document.querySelectorAll('.card-container');
+                
+                cardContainers.forEach(container => {
+                    const card = container.querySelector('.card');
+                    
+                    // Touch start
+                    container.addEventListener('touchstart', (e) => {
+                        touchStartTime = Date.now();
+                        currentTouchCard = container;
+                        
+                        // Start hold timer for showing description
+                        touchHoldTimer = setTimeout(() => {
+                            container.classList.add('touch-active');
+                        }, 500); // Show description after 500ms hold
+                        
+                        // Get touch position for tilt effect
+                        const touch = e.touches[0];
+                        const rect = card.getBoundingClientRect();
+                        const x = touch.clientX - rect.left;
+                        const y = touch.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = (y - centerY) / centerY * -10; // Reduced intensity for mobile
+                        const rotateY = (x - centerX) / centerX * 10;
+                        
+                        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                    });
+                    
+                    // Touch move
+                    container.addEventListener('touchmove', (e) => {
+                        if (currentTouchCard !== container) return;
+                        
+                        // Update tilt effect during move
+                        const touch = e.touches[0];
+                        const rect = card.getBoundingClientRect();
+                        const x = touch.clientX - rect.left;
+                        const y = touch.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = (y - centerY) / centerY * -10;
+                        const rotateY = (x - centerX) / centerX * 10;
+                        
+                        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                    });
+                    
+                    // Touch end
+                    container.addEventListener('touchend', (e) => {
+                        const touchDuration = Date.now() - touchStartTime;
+                        
+                        // Clear hold timer
+                        if (touchHoldTimer) {
+                            clearTimeout(touchHoldTimer);
+                            touchHoldTimer = null;
+                        }
+                        
+                        // Reset tilt effect
+                        card.style.transform = '';
+                        
+                        // If it was a quick tap (not a hold), handle as click
+                        if (touchDuration < 500 && currentTouchCard === container) {
+                            // Hide description overlay
+                            container.classList.remove('touch-active');
+                            
+                            // Trigger card animation
+                            const cardData = cardsData.find(c => c.slug === card.dataset.slug);
+                            if (cardData) {
+                                focusCard(card, cardData.slug);
+                            }
+                        }
+                        
+                        currentTouchCard = null;
+                    });
+                    
+                    // Touch cancel
+                    container.addEventListener('touchcancel', () => {
+                        if (touchHoldTimer) {
+                            clearTimeout(touchHoldTimer);
+                            touchHoldTimer = null;
+                        }
+                        
+                        card.style.transform = '';
+                        container.classList.remove('touch-active');
+                        currentTouchCard = null;
+                    });
+                });
+            }
+        }
+        
+        // Toggle mute/unmute
+        function toggleMute() {
+            isMuted = !isMuted;
+            bgmAudio.muted = isMuted;
+            
+            // If music isn't playing and user unmutes, start playing
+            if (!isMuted && bgmAudio.paused) {
+                bgmAudio.play().catch(error => {
+                    console.log('Audio play failed:', error);
+                });
+            }
+            
+            updateMuteIcon();
+            updateBgmIndicator();
+        }
+        
+        // Update mute icon and button state
+        function updateMuteIcon() {
+            const muteIcon = document.getElementById('muteIcon');
+            const muteBtn = document.getElementById('muteBtn');
+            
+            if (isMuted) {
+                muteIcon.textContent = '🔇';
+                muteBtn.classList.add('muted');
+                muteBtn.title = currentLanguage === 'ko' ? '배경음악 음소거 해제' : 'Unmute Background Music';
+            } else {
+                muteIcon.textContent = '🔊';
+                muteBtn.classList.remove('muted');
+                muteBtn.title = currentLanguage === 'ko' ? '배경음악 음소거' : 'Mute Background Music';
+            }
+        }
+        
+        // Update BGM indicator state
+        function updateBgmIndicator() {
+            const bgmIndicator = document.getElementById('bgmIndicator');
+            
+            if (isMuted || bgmAudio.paused) {
+                bgmIndicator.classList.add('muted');
+            } else {
+                bgmIndicator.classList.remove('muted');
+            }
+        }
+        
         // Switch language
         function switchLanguage(lang) {
             currentLanguage = lang;
@@ -805,8 +1201,14 @@
                 animateBtn.textContent = translations[lang].animateAll;
             }
             
+            // Update music button title
+            updateMuteIcon();
+            
             // Re-render cards to update descriptions
             renderCards();
+            
+            // Re-setup mobile touch effects after re-rendering
+            setupMobileTouchEffects();
         }
         
         // Toggle animate all cards
@@ -915,13 +1317,15 @@
             button.appendChild(descriptionOverlay);
             container.appendChild(button);
             
-            // Add event listeners
-            setupCardEventListeners(button, card);
+            // Add event listeners (only for desktop)
+            if (!window.matchMedia("(max-width: 768px)").matches) {
+                setupCardEventListeners(button, card);
+            }
             
             return container;
         }
         
-        // Setup event listeners for a card
+        // Setup event listeners for a card (desktop only)
         function setupCardEventListeners(cardElement, cardData) {
             // Click/tap to focus
             cardElement.addEventListener('click', () => {
@@ -938,13 +1342,12 @@
             });
             
             // Mouse/touch tilt effects (if motion is not reduced and not mobile)
-            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && 
-                !window.matchMedia("(max-width: 768px)").matches) {
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
                 setupTiltEffect(cardElement);
             }
         }
         
-        // Setup tilt effect for a card
+        // Setup tilt effect for a card (desktop only)
         function setupTiltEffect(cardElement) {
             let isPointerDown = false;
             
@@ -1007,6 +1410,14 @@
         }
         
         function focusCard(cardElement, slug) {
+            // Hide description overlay on mobile when card is clicked
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                const container = cardElement.closest('.card-container');
+                if (container) {
+                    container.classList.remove('touch-active');
+                }
+            }
+            
             // If all cards are currently animated, turn off animate all mode first
             if (allCardsAnimated) {
                 const animateAllBtn = document.getElementById('animateAllBtn');
@@ -1109,6 +1520,11 @@
             
             // Handle browser back/forward
             window.addEventListener('popstate', handleDeepLink);
+            
+            // Handle window resize to re-setup mobile effects
+            window.addEventListener('resize', () => {
+                setupMobileTouchEffects();
+            });
         }
         
         // Analytics tracking
@@ -1142,4 +1558,4 @@
         }
     </script>
 </body>
-</html
+</html>
