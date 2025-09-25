@@ -44,6 +44,44 @@
             text-align: center;
             padding: 2rem 1rem;
             color: white;
+            position: relative;
+            z-index: 100;
+        }
+        
+        /* Animate All Button */
+        .animate-all-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            z-index: 101;
+        }
+        
+        .animate-all-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .animate-all-btn:active {
+            transform: translateY(0);
+        }
+        
+        .animate-all-btn.active {
+            background: rgba(255, 100, 100, 0.3);
+            border-color: rgba(255, 100, 100, 0.6);
         }
         
         .header h1 {
@@ -61,22 +99,23 @@
             margin: 0 auto;
         }
         
-        /* Gallery Container */
+        /* Desktop Gallery Container */
         .gallery {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 3rem 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
             justify-items: center;
+            align-items: start;
         }
         
         /* Card Container */
         .card-container {
             perspective: 1000px;
             width: 100%;
-            max-width: 320px;
+            max-width: 350px;
             aspect-ratio: 9/16;
             position: relative;
         }
@@ -92,9 +131,9 @@
             border: none;
             background: none;
             padding: 0;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
         
         .card:focus {
@@ -102,15 +141,12 @@
             outline-offset: 4px;
         }
         
-
-        
         /* Card Faces */
         .card-face {
             position: absolute;
             width: 100%;
             height: 100%;
-
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
         }
         
@@ -118,8 +154,6 @@
             background: #000;
             position: relative;
         }
-        
-
         
         /* Card Images */
         .card-image {
@@ -148,13 +182,9 @@
             opacity: 1;
         }
 
-
-
         .card-container:hover .card {
             transform: scale(1.05);
         }
-        
-
         
         /* Card Back Content */
         .card-title {
@@ -215,31 +245,192 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        /* Focus and Highlight Styles */
+        .card.focused {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .card-description-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'MedievalSharp', cursive;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            z-index: 5;
+        }
+
+        .overlay-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .overlay-description {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: white;
+            max-width: 90%;
+        }
+
+        .card-container:hover .card-description-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Tablet Responsive Design */
+        @media (max-width: 1024px) {
             .gallery {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1.5rem;
-                padding: 1rem;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                padding: 2rem 1.5rem;
+                max-width: 1200px;
             }
             
             .card-container {
-                max-width: 280px;
+                max-width: 320px;
             }
             
-            .header {
-                padding: 1.5rem 1rem;
+            .animate-all-btn {
+                top: 1.5rem;
+                right: 1.5rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
             }
         }
         
-        @media (max-width: 480px) {
+        /* Mobile Responsive Design - Instagram Style */
+        @media (max-width: 768px) {
+            body {
+                background: #000;
+            }
+            
+            .header {
+                padding: 1rem;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+                z-index: 100;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+                margin-bottom: 0;
+            }
+            
+            .animate-all-btn {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
             .gallery {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+                display: block;
+                padding: 0;
+                margin-top: 80px;
+                max-width: 100%;
             }
             
             .card-container {
-                max-width: 260px;
+                width: 100vw;
+                height: 100vh;
+                max-width: none;
+                aspect-ratio: unset;
+                margin: 0;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+            }
+            
+            .card {
+                width: 100%;
+                height: 85vh;
+                max-width: 400px;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            }
+            
+            .card-face {
+                border-radius: 15px;
+            }
+            
+            .card-container:hover .card {
+                transform: none;
+            }
+            
+            .card-description-overlay {
+                padding: 1rem;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                opacity: 1;
+                transform: translateY(0);
+                background: rgba(0, 0, 0, 0.7);
+                position: absolute;
+                bottom: 0;
+            }
+            
+            .overlay-title {
+                font-size: 1.4rem;
+            }
+            
+            .overlay-description {
+                font-size: 1rem;
+            }
+            
+            /* Disable hover effects on mobile */
+            .card-container:hover .card-description-overlay {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            /* Smooth scroll snapping for Instagram-like experience */
+            .gallery {
+                scroll-snap-type: y mandatory;
+                overflow-y: auto;
+                height: 100vh;
+            }
+            
+            .card-container {
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+        }
+        
+        /* Extra small mobile devices */
+        @media (max-width: 480px) {
+            .card {
+                height: 80vh;
+                max-width: 350px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .animate-all-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.7rem;
             }
         }
         
@@ -253,69 +444,37 @@
                 transition: none;
             }
             
-            .card-glare {
-                display: none;
+            .card-description-overlay {
+                transition: none;
             }
             
             html {
                 scroll-behavior: auto;
             }
+            
+            .gallery {
+                scroll-behavior: auto;
+            }
         }
         
-        /* Focus and Highlight Styles */
-        .card.focused {
-            transform: scale(1.05);
-            z-index: 10;
-        }
-        
-
-
-        .card-description-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(100%); /* Start hidden below the card */
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for both */
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'MedievalSharp', cursive;
-            border-bottom-left-radius: 16px;
-            border-bottom-right-radius: 16px;
-        }
-
-        .overlay-title {
-            font-size: 1.5rem; /* Bigger font size for the card name */
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: white;
-        }
-
-        .overlay-description {
-            font-size: 1rem; /* Smaller font size for the description */
-            line-height: 1.4;
-            color: white;
-            max-width: 90%;
-        }
-
-        .card-container:hover .card-description-overlay {
-            opacity: 1;
-            transform: translateY(0); /* Slide up into view */
+        /* Landscape mobile orientation */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .card-container {
+                height: 100vh;
+                padding: 0.5rem;
+            }
+            
+            .card {
+                height: 90vh;
+                max-width: 60vh;
+            }
         }
     </style>
 </head>
 <body>
     <header class="header">
+        <button class="animate-all-btn" id="animateAllBtn">Animate All</button>
         <h1>ANIMA Card Gallery</h1>
-
     </header>
     
     <main class="gallery" id="gallery">
@@ -329,12 +488,14 @@
         // Global variables
         let cardsData = [];
         let currentFocusedCard = null;
+        let allCardsAnimated = false;
         
         // Initialize the application
         async function init() {
             try {
                 await loadCards();
                 renderCards();
+                setupAnimateAllButton();
                 handleDeepLink();
                 setupEventListeners();
             } catch (error) {
@@ -363,6 +524,48 @@
             });
         }
         
+        // Setup animate all button
+        function setupAnimateAllButton() {
+            const animateAllBtn = document.getElementById('animateAllBtn');
+            animateAllBtn.addEventListener('click', toggleAnimateAll);
+        }
+        
+        // Toggle animate all cards
+        function toggleAnimateAll() {
+            const animateAllBtn = document.getElementById('animateAllBtn');
+            const allCards = document.querySelectorAll('.card');
+            
+            if (allCardsAnimated) {
+                // Pause all animations
+                allCards.forEach(card => {
+                    card.classList.remove('animated', 'focused');
+                    card.setAttribute('aria-pressed', 'false');
+                });
+                
+                animateAllBtn.textContent = 'Animate All';
+                animateAllBtn.classList.remove('active');
+                allCardsAnimated = false;
+                currentFocusedCard = null;
+                
+                // Clear URL parameter
+                updateURL();
+            } else {
+                // Animate all cards
+                allCards.forEach(card => {
+                    card.classList.add('animated', 'focused');
+                    card.setAttribute('aria-pressed', 'true');
+                });
+                
+                animateAllBtn.textContent = 'Pause All';
+                animateAllBtn.classList.add('active');
+                allCardsAnimated = true;
+                currentFocusedCard = null; // Clear individual focus when all are animated
+                
+                // Update URL to show all animated
+                updateURL('all');
+            }
+        }
+        
         // Create a single card element
         function createCardElement(card, index) {
             const container = document.createElement('div');
@@ -389,14 +592,9 @@
             gifImg.src = card.gifSrc;
             gifImg.alt = card.title + " animated";
             gifImg.loading = 'lazy';
-            gifImg.style.display = 'none'; // Initially hidden
             
             front.appendChild(staticImg);
             front.appendChild(gifImg);
-            
-
-            
-
             
             button.appendChild(front);
 
@@ -439,17 +637,14 @@
                 }
             });
             
-            // Mouse/touch tilt effects (if motion is not reduced)
-            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            // Mouse/touch tilt effects (if motion is not reduced and not mobile)
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && 
+                !window.matchMedia("(max-width: 768px)").matches) {
                 setupTiltEffect(cardElement);
             }
         }
         
-
-        
-
-        
-          // Setup tilt effect for a card
+        // Setup tilt effect for a card
         function setupTiltEffect(cardElement) {
             let isPointerDown = false;
             
@@ -485,8 +680,6 @@
                 const rotateY = (x - centerX) / centerX * 18;
                 
                 cardElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-                
-
             });
         }
         
@@ -494,47 +687,88 @@
         function resetTilt(cardElement) {
             cardElement.style.transition = "transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
             cardElement.style.transform = "";
-            
-
         }
         
-        // Focus a card
-        function focusCard(cardElement, slug) {
-            if (currentFocusedCard && currentFocusedCard !== cardElement) {
-                unfocusCard(currentFocusedCard);
-            }
-
-            const isAnimated = cardElement.classList.toggle("animated");
-            cardElement.setAttribute("aria-pressed", isAnimated);
-
-            const staticImg = cardElement.querySelector(".card-image.static");
-            const gifImg = cardElement.querySelector(".card-image.gif");
-
-            if (isAnimated) {
-                staticImg.style.display = "none";
-                gifImg.style.display = "block";
-                currentFocusedCard = cardElement;
-                updateURL(slug);
+        // Helper function to reset a card to static state
+        function resetCardToStatic(cardElement) {
+            cardElement.classList.remove("animated", "focused");
+            cardElement.setAttribute("aria-pressed", "false");
+        }
+        
+        // Helper function to update URL
+        function updateURL(slug = null) {
+            const url = new URL(window.location);
+            if (slug) {
+                url.searchParams.set("card", slug);
             } else {
-                staticImg.style.display = "block";
-                gifImg.style.display = "none";
+                url.searchParams.delete("card");
+            }
+            history.replaceState(null, "", url);
+        }
+        
+        function focusCard(cardElement, slug) {
+            // If all cards are currently animated, turn off animate all mode first
+            if (allCardsAnimated) {
+                const animateAllBtn = document.getElementById('animateAllBtn');
+                const allCards = document.querySelectorAll('.card');
+                
+                // Reset all cards to static
+                allCards.forEach(card => {
+                    card.classList.remove('animated', 'focused');
+                    card.setAttribute('aria-pressed', 'false');
+                });
+                
+                // Reset animate all button
+                animateAllBtn.textContent = 'Animate All';
+                animateAllBtn.classList.remove('active');
+                allCardsAnimated = false;
+            }
+            
+            // If there's a currently focused card and it's different from the clicked one
+            if (currentFocusedCard && currentFocusedCard !== cardElement) {
+                // Reset the previous card to static state
+                resetCardToStatic(currentFocusedCard);
+            }
+            
+            // Check if the clicked card is currently animated
+            const isCurrentlyAnimated = cardElement.classList.contains("animated");
+            
+            if (isCurrentlyAnimated) {
+                // If clicking the same animated card, turn it off
+                resetCardToStatic(cardElement);
                 currentFocusedCard = null;
-                updateURL();
+                updateURL(); // Clear URL parameter
+            } else {
+                // Animate the clicked card
+                cardElement.classList.add("animated", "focused");
+                cardElement.setAttribute("aria-pressed", "true");
+                currentFocusedCard = cardElement;
+                
+                // Scroll into view (only on desktop)
+                if (!window.matchMedia("(max-width: 768px)").matches) {
+                    cardElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+                
+                // Update URL
+                updateURL(slug);
             }
         }
 
         function unfocusCard(cardElement) {
             if (cardElement) {
-                cardElement.classList.remove("focused", "animated");
-                cardElement.setAttribute('aria-pressed', 'false');
+                resetCardToStatic(cardElement);
+            }
+            
+            // If all cards were animated, reset the animate all state
+            if (allCardsAnimated) {
+                const animateAllBtn = document.getElementById('animateAllBtn');
+                animateAllBtn.textContent = 'Animate All';
+                animateAllBtn.classList.remove('active');
+                allCardsAnimated = false;
             }
             
             currentFocusedCard = null;
-            
-            // Remove card parameter from URL
-            const url = new URL(window.location);
-            url.searchParams.delete('card');
-            history.replaceState(null, '', url);
+            updateURL(); // Clear URL parameter
         }
         
         // Handle deep linking
@@ -548,7 +782,12 @@
                 trackEvent('qr_visit', { card_slug: cardSlug, source: fromSource });
             }
             
-            if (cardSlug) {
+            if (cardSlug === 'all') {
+                // Animate all cards
+                setTimeout(() => {
+                    toggleAnimateAll();
+                }, 100);
+            } else if (cardSlug) {
                 const cardElement = document.querySelector(`[data-slug="${cardSlug}"]`);
                 if (cardElement) {
                     setTimeout(() => {
@@ -582,16 +821,6 @@
             
             // Log to console for now (replace with actual analytics)
             console.log('Analytics Event:', eventName, properties);
-            
-            // Example: Google Analytics 4
-            // if (typeof gtag !== 'undefined') {
-            //     gtag('event', eventName, properties);
-            // }
-            
-            // Example: Plausible
-            // if (typeof plausible !== 'undefined') {
-            //     plausible(eventName, { props: properties });
-            // }
         }
         
         // Show error message
