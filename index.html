@@ -216,6 +216,37 @@
             background: rgba(255, 100, 100, 0.1);
         }
         
+        /* ===== GRID VIEW BUTTON STYLES (Mobile Only) ===== */
+        .grid-view-btn {
+            background: rgba(78, 205, 196, 0.2);
+            border: 2px solid rgba(78, 205, 196, 0.4);
+            color: #4ECDC4;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: none; /* Hidden by default, shown only on mobile */
+            order: 2.5; /* Between music player and animate button */
+        }
+        
+        .grid-view-btn:hover {
+            background: rgba(78, 205, 196, 0.3);
+            border-color: rgba(78, 205, 196, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .grid-view-btn.active {
+            background: rgba(78, 205, 196, 0.4);
+            border-color: rgba(78, 205, 196, 0.8);
+            color: white;
+        }
+        
         /* ===== DESKTOP ANIMATE BUTTON STYLES ===== */
         .animate-all-btn {
             background: rgba(255, 255, 255, 0.1);
@@ -576,6 +607,21 @@
                 justify-content: flex-start; /* MOBILE: Maintain left alignment */
             }
             
+            /* MOBILE: Show Grid View button */
+            .grid-view-btn {
+                display: block;
+            }
+            
+            /* MOBILE: Hide Animate All button by default (show only in grid view) */
+            .animate-all-btn {
+                display: none;
+            }
+            
+            /* MOBILE: Show Animate All button only in grid view */
+            body.grid-view .animate-all-btn {
+                display: block;
+            }
+            
             /* MOBILE: Smaller controls */
             .controls {
                 top: 1rem; /* MOBILE: Adjusted controls position */
@@ -584,6 +630,11 @@
             }
             
             .animate-all-btn {
+                padding: 0.5rem 1rem; /* MOBILE: Smaller button padding */
+                font-size: 0.8rem; /* MOBILE: Smaller button font */
+            }
+            
+            .grid-view-btn {
                 padding: 0.5rem 1rem; /* MOBILE: Smaller button padding */
                 font-size: 0.8rem; /* MOBILE: Smaller button font */
             }
@@ -609,18 +660,21 @@
                 font-size: 0.7rem;
             }
             
-            /* MOBILE: Instagram-style vertical layout */
+            /* MOBILE: Default single-card view (Instagram style) */
             .gallery {
                 display: block; /* MOBILE: Block layout instead of grid */
                 padding: 0; /* MOBILE: No padding for full-width cards */
-                margin-top: 100px; /* MOBILE POSITIONING: ADJUST THIS VALUE TO MOVE CARDS UP/DOWN (currently 100px from top) */
+                margin-top: 60px; /* MOBILE POSITIONING: ADJUST THIS VALUE TO MOVE CARDS UP/DOWN (currently 60px from top) */
                 max-width: 100%;
+                scroll-snap-type: y mandatory; /* MOBILE: Snap scrolling for Instagram feel */
+                overflow-y: auto;
+                height: calc(100vh - 60px);
             }
             
             /* MOBILE: Full-screen card containers */
             .card-container {
                 width: 100vw; /* MOBILE: Full viewport width */
-                height: 100vh; /* MOBILE: Full viewport height */
+                height: 60vh; /* MOBILE CARD HEIGHT: ADJUST THIS VALUE TO CHANGE CARD SIZE (currently 60% of viewport height) */
                 max-width: none;
                 aspect-ratio: unset;
                 margin: 0;
@@ -628,13 +682,15 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 1rem; /* MOBILE CARD PADDING: ADJUST THIS VALUE TO CHANGE CARD MARGINS (currently 1rem = 16px) */
+                padding: 0.5rem; /* MOBILE CARD PADDING: ADJUST THIS VALUE TO CHANGE CARD MARGINS (currently 0.5rem = 8px) */
+                scroll-snap-align: center;
+                scroll-snap-stop: always;
             }
             
             /* MOBILE: Optimized card sizing */
             .card {
                 width: 100%;
-                height: 85vh; /* MOBILE CARD HEIGHT: ADJUST THIS VALUE TO CHANGE CARD SIZE (currently 85% of viewport height) */
+                height: 100%;
                 max-width: 400px;
                 border-radius: 15px; /* MOBILE: Smaller border radius */
                 box-shadow: 0 10px 30px rgba(0,0,0,0.6); /* MOBILE: Enhanced shadow */
@@ -644,9 +700,28 @@
                 border-radius: 15px; /* MOBILE: Match card border radius */
             }
             
-            /* MOBILE: Enable tilt effects for touch devices */
-            .card-container .card {
-                transition: transform 0.1s ease-out;
+            /* MOBILE: Grid view styles */
+            body.grid-view .gallery {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+                padding: 1rem;
+                margin-top: 120px;
+                height: auto;
+                scroll-snap-type: none;
+            }
+            
+            body.grid-view .card-container {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 9/16;
+                padding: 0;
+                scroll-snap-align: unset;
+            }
+            
+            body.grid-view .card {
+                max-width: none;
+                border-radius: 10px;
             }
             
             /* MOBILE: Description overlay - HIDDEN BY DEFAULT */
@@ -677,21 +752,15 @@
             }
             
             /* MOBILE: Hide overlay when card is animated */
-            .card.animated ~ .card-description-overlay {
+            .card.animated .card-description-overlay {
                 opacity: 0 !important;
                 transform: translateY(100%) !important;
             }
             
-            /* MOBILE: Instagram-style smooth scroll snapping */
-            .gallery {
-                scroll-snap-type: y mandatory; /* MOBILE: Snap scrolling for Instagram feel */
-                overflow-y: auto;
-                height: 100vh;
-            }
-            
-            .card-container {
-                scroll-snap-align: start; /* MOBILE: Snap each card to start */
-                scroll-snap-stop: always; /* MOBILE: Force stop at each card */
+            /* MOBILE: Disable desktop hover effects */
+            .card-container:hover .card-description-overlay {
+                opacity: 0;
+                transform: translateY(100%);
             }
         }
         
@@ -706,15 +775,16 @@
             }
             
             .gallery {
-                margin-top: 90px; /* SMALL MOBILE POSITIONING: ADJUST THIS VALUE (currently 90px from top) */
+                margin-top: 50px; /* SMALL MOBILE POSITIONING: ADJUST THIS VALUE (currently 50px from top) */
             }
             
             .card-container {
-                padding: 0.8rem; /* SMALL MOBILE PADDING: ADJUST THIS VALUE (currently 0.8rem = 12.8px) */
+                padding: 0.3rem; /* SMALL MOBILE PADDING: ADJUST THIS VALUE (currently 0.3rem = 4.8px) */
+                height: 55vh; /* SMALL MOBILE CARD HEIGHT: ADJUST THIS VALUE (currently 55% of viewport height) */
             }
             
             .card {
-                height: 80vh; /* SMALL MOBILE CARD HEIGHT: ADJUST THIS VALUE (currently 80% of viewport height) */
+                height: 100%;
                 max-width: 350px; /* SMALL MOBILE: Slightly smaller max width */
             }
             
@@ -734,7 +804,7 @@
                 justify-content: flex-start; /* SMALL MOBILE: Maintain left alignment */
             }
             
-            .animate-all-btn {
+            .animate-all-btn, .grid-view-btn {
                 padding: 0.4rem 0.8rem; /* SMALL MOBILE: Tiny button padding */
                 font-size: 0.7rem; /* SMALL MOBILE: Tiny button font */
             }
@@ -758,6 +828,12 @@
                 width: 18px; /* SMALL MOBILE: Micro music button */
                 height: 18px;
                 font-size: 0.65rem;
+            }
+            
+            body.grid-view .gallery {
+                margin-top: 100px;
+                gap: 0.3rem;
+                padding: 0.5rem;
             }
         }
         
@@ -823,6 +899,9 @@
                     <span id="muteIcon">🔊</span>
                 </button>
             </div>
+            
+            <!-- Grid View button (Mobile Only) -->
+            <button class="grid-view-btn" id="gridViewBtn" data-en="Grid View" data-ko="전체보기">전체보기</button>
             
             <!-- Animate All button -->
             <button class="animate-all-btn" id="animateAllBtn" data-en="Animate All" data-ko="모두 재생">모두 재생</button>
@@ -900,20 +979,21 @@
                 desc_ko: '세계 사이를 춤추며 불안한 마음에 평온을 가져다주는 고요한 안내자. \n 들어본 적 없는 인디 음악을 듣고 신비로운 분위기를 풍기는 타입.'
             },
             'coming-soon': {
-                tags: [''],
-                desc: 'Who will join the collection next?',
-                tags_ko: [''],
-                desc_ko: '다음에는 누가 컬렉션에 합류할까요?'
+                tags: ['#Mystery', '#Anticipation', '#Unknown', '#Future'],
+                desc: 'New personalities are being crafted... Who will join the collection next?',
+                tags_ko: ['#신비', '#기대', '#미지', '#미래'],
+                desc_ko: '새로운 성격들이 만들어지고 있습니다... 다음에는 누가 컬렉션에 합류할까요?'
             }
         };
         
         // Global variables
         let cardsData = [];
+        let currentLanguage = 'ko'; // Korean as default
         let currentFocusedCard = null;
         let allCardsAnimated = false;
-        let currentLanguage = 'ko'; // UPDATED: Korean as default language
+        let isGridView = false; // Track grid view state
         
-        // Music player variables
+        // Audio and music variables
         let bgmAudio = null;
         let isMuted = false;
         
@@ -932,6 +1012,8 @@
                 `,
                 animateAll: "Animate All",
                 pauseAll: "Pause All",
+                gridView: "Grid View",
+                singleView: "Single View",
                 loading: "Loading cards..."
             },
             ko: {
@@ -942,6 +1024,8 @@
                 `,
                 animateAll: "모두 재생",
                 pauseAll: "모두 정지",
+                gridView: "전체보기",
+                singleView: "개별보기",
                 loading: "카드 로딩 중..."
             }
         };
@@ -949,55 +1033,95 @@
         // Initialize the application
         async function init() {
             try {
-                await loadCards();
-                renderCards();
-                setupAnimateAllButton();
-                setupLanguageToggle();
+                // Load cards data
+                const response = await fetch('cards.json');
+                if (!response.ok) throw new Error('Failed to load cards data');
+                cardsData = await response.json();
+                
+                // Setup components
                 setupMusicPlayer();
+                setupLanguageToggle();
+                setupGridViewToggle();
+                setupAnimateAllButton();
+                setupKeyboardNavigation();
+                
+                // Render cards and handle deep linking
+                await renderCards();
                 handleDeepLink();
-                setupEventListeners();
-                setupMobileTouchEffects(); // NEW: Setup mobile touch effects
+                
+                console.log('ANIMA Card Gallery initialized successfully');
             } catch (error) {
-                console.error('Failed to initialize:', error);
-                showError('Failed to load cards. Please refresh the page.');
+                console.error('Failed to initialize gallery:', error);
+                document.getElementById('gallery').innerHTML = `
+                    <div style="text-align: center; color: white; padding: 2rem;">
+                        <h2>Loading Error</h2>
+                        <p>Failed to load the card gallery. Please refresh the page.</p>
+                    </div>
+                `;
             }
         }
         
-        // Load cards data
-        async function loadCards() {
-            const response = await fetch('cards.json');
-            if (!response.ok) {
-                throw new Error('Failed to fetch cards data');
-            }
-            cardsData = await response.json();
-        }
-        
-        // Render cards in the gallery
-        function renderCards() {
-            const gallery = document.getElementById('gallery');
-            gallery.innerHTML = '';
+        // Setup language toggle functionality
+        function setupLanguageToggle() {
+            const langOptions = document.querySelectorAll('.lang-option');
             
-            cardsData.forEach((card, index) => {
-                const cardElement = createCardElement(card, index);
-                gallery.appendChild(cardElement);
+            langOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const newLang = option.dataset.lang;
+                    if (newLang !== currentLanguage) {
+                        switchLanguage(newLang);
+                    }
+                });
             });
+        }
+        
+        // Setup grid view toggle functionality
+        function setupGridViewToggle() {
+            const gridViewBtn = document.getElementById('gridViewBtn');
+            
+            if (gridViewBtn) {
+                gridViewBtn.addEventListener('click', () => {
+                    toggleGridView();
+                });
+            }
+        }
+        
+        // Toggle between grid view and single view on mobile
+        function toggleGridView() {
+            isGridView = !isGridView;
+            const body = document.body;
+            const gridViewBtn = document.getElementById('gridViewBtn');
+            
+            if (isGridView) {
+                body.classList.add('grid-view');
+                gridViewBtn.textContent = currentLanguage === 'ko' ? '개별보기' : 'Single View';
+                gridViewBtn.classList.add('active');
+                
+                // Reset all animations when entering grid view
+                if (allCardsAnimated) {
+                    toggleAnimateAll();
+                }
+                resetAllCards();
+            } else {
+                body.classList.remove('grid-view');
+                gridViewBtn.textContent = currentLanguage === 'ko' ? '전체보기' : 'Grid View';
+                gridViewBtn.classList.remove('active');
+                
+                // Reset all animations when exiting grid view
+                if (allCardsAnimated) {
+                    toggleAnimateAll();
+                }
+                resetAllCards();
+            }
         }
         
         // Setup animate all button
         function setupAnimateAllButton() {
             const animateAllBtn = document.getElementById('animateAllBtn');
-            animateAllBtn.addEventListener('click', toggleAnimateAll);
-        }
-        
-        // Setup language toggle
-        function setupLanguageToggle() {
-            const langOptions = document.querySelectorAll('.lang-option');
-            langOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    const lang = option.dataset.lang;
-                    switchLanguage(lang);
-                });
-            });
+            
+            if (animateAllBtn) {
+                animateAllBtn.addEventListener('click', toggleAnimateAll);
+            }
         }
         
         // Setup minimalistic music player
@@ -1033,7 +1157,7 @@
             bgmAudio.addEventListener('volumechange', updateBgmIndicator);
         }
         
-        // NEW: Setup mobile touch effects
+        // Setup mobile touch effects
         function setupMobileTouchEffects() {
             // Only setup on mobile devices
             if (window.matchMedia("(max-width: 768px)").matches) {
@@ -1201,6 +1325,14 @@
                 animateBtn.textContent = translations[lang].animateAll;
             }
             
+            // Update grid view button text
+            const gridViewBtn = document.getElementById('gridViewBtn');
+            if (gridViewBtn) {
+                gridViewBtn.textContent = isGridView ? 
+                    (lang === 'ko' ? '개별보기' : 'Single View') : 
+                    (lang === 'ko' ? '전체보기' : 'Grid View');
+            }
+            
             // Update music button title
             updateMuteIcon();
             
@@ -1245,6 +1377,88 @@
                 // Update URL to show all animated
                 updateURL('all');
             }
+        }
+        
+        // Reset all cards to static state
+        function resetAllCards() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.classList.remove('animated', 'focused');
+                card.setAttribute('aria-pressed', 'false');
+            });
+            currentFocusedCard = null;
+            updateURL();
+        }
+        
+        // Setup keyboard navigation
+        function setupKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (allCardsAnimated) {
+                        toggleAnimateAll();
+                    } else if (currentFocusedCard) {
+                        unfocusCard(currentFocusedCard);
+                    }
+                }
+            });
+        }
+        
+        // Focus on a specific card
+        function focusCard(cardElement, slug) {
+            // If there's a currently focused card and it's different from the clicked one
+            if (currentFocusedCard && currentFocusedCard !== cardElement) {
+                unfocusCard(currentFocusedCard);
+            }
+            
+            // If all cards are animated, turn off animate all mode
+            if (allCardsAnimated) {
+                toggleAnimateAll();
+            }
+            
+            // Check if the clicked card is currently animated
+            const isCurrentlyAnimated = cardElement.classList.contains("animated");
+            
+            if (isCurrentlyAnimated) {
+                // If clicking the same animated card, turn it off
+                unfocusCard(cardElement);
+            } else {
+                // Animate the clicked card
+                cardElement.classList.add("animated", "focused");
+                cardElement.setAttribute("aria-pressed", "true");
+                currentFocusedCard = cardElement;
+                
+                // Hide description overlay when animating on mobile
+                const container = cardElement.closest('.card-container');
+                if (container) {
+                    container.classList.remove('touch-active');
+                }
+                
+                // Scroll into view (only on desktop)
+                if (window.innerWidth > 768) {
+                    cardElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+                
+                updateURL(slug);
+            }
+        }
+        
+        // Unfocus a card
+        function unfocusCard(cardElement) {
+            cardElement.classList.remove("animated", "focused");
+            cardElement.setAttribute("aria-pressed", "false");
+            currentFocusedCard = null;
+            updateURL();
+        }
+        
+        // Update URL with current state
+        function updateURL(slug = null) {
+            const url = new URL(window.location);
+            if (slug) {
+                url.searchParams.set('card', slug);
+            } else {
+                url.searchParams.delete('card');
+            }
+            window.history.replaceState({}, '', url);
         }
         
         // Create a single card element
@@ -1379,8 +1593,8 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = (y - centerY) / centerY * -18;
-                const rotateY = (x - centerX) / centerX * 18;
+                const rotateX = (y - centerY) / centerY * -15;
+                const rotateY = (x - centerX) / centerX * 15;
                 
                 cardElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
             });
@@ -1392,170 +1606,50 @@
             cardElement.style.transform = "";
         }
         
-        // Helper function to reset a card to static state
-        function resetCardToStatic(cardElement) {
-            cardElement.classList.remove("animated", "focused");
-            cardElement.setAttribute("aria-pressed", "false");
-        }
-        
-        // Helper function to update URL
-        function updateURL(slug = null) {
-            const url = new URL(window.location);
-            if (slug) {
-                url.searchParams.set("card", slug);
-            } else {
-                url.searchParams.delete("card");
-            }
-            history.replaceState(null, "", url);
-        }
-        
-        function focusCard(cardElement, slug) {
-            // Hide description overlay on mobile when card is clicked
-            if (window.matchMedia("(max-width: 768px)").matches) {
-                const container = cardElement.closest('.card-container');
-                if (container) {
-                    container.classList.remove('touch-active');
-                }
+        // Render all cards
+        async function renderCards() {
+            const gallery = document.getElementById('gallery');
+            if (!gallery) return;
+            
+            gallery.innerHTML = '';
+            
+            if (cardsData.length === 0) {
+                gallery.innerHTML = `<div style="text-align: center; color: white; padding: 2rem;">
+                    <p>${translations[currentLanguage].loading}</p>
+                </div>`;
+                return;
             }
             
-            // If all cards are currently animated, turn off animate all mode first
-            if (allCardsAnimated) {
-                const animateAllBtn = document.getElementById('animateAllBtn');
-                const allCards = document.querySelectorAll('.card');
-                
-                // Reset all cards to static
-                allCards.forEach(card => {
-                    card.classList.remove('animated', 'focused');
-                    card.setAttribute('aria-pressed', 'false');
-                });
-                
-                // Reset animate all button
-                animateAllBtn.textContent = translations[currentLanguage].animateAll;
-                animateAllBtn.classList.remove('active');
-                allCardsAnimated = false;
-            }
+            cardsData.forEach((card, index) => {
+                const cardElement = createCardElement(card, index);
+                gallery.appendChild(cardElement);
+            });
             
-            // If there's a currently focused card and it's different from the clicked one
-            if (currentFocusedCard && currentFocusedCard !== cardElement) {
-                // Reset the previous card to static state
-                resetCardToStatic(currentFocusedCard);
-            }
-            
-            // Check if the clicked card is currently animated
-            const isCurrentlyAnimated = cardElement.classList.contains("animated");
-            
-            if (isCurrentlyAnimated) {
-                // If clicking the same animated card, turn it off
-                resetCardToStatic(cardElement);
-                currentFocusedCard = null;
-                updateURL(); // Clear URL parameter
-            } else {
-                // Animate the clicked card
-                cardElement.classList.add("animated", "focused");
-                cardElement.setAttribute("aria-pressed", "true");
-                currentFocusedCard = cardElement;
-                
-                // Scroll into view (only on desktop)
-                if (!window.matchMedia("(max-width: 768px)").matches) {
-                    cardElement.scrollIntoView({ behavior: "smooth", block: "center" });
-                }
-                
-                // Update URL
-                updateURL(slug);
-            }
-        }
-
-        function unfocusCard(cardElement) {
-            if (cardElement) {
-                resetCardToStatic(cardElement);
-            }
-            
-            // If all cards were animated, reset the animate all state
-            if (allCardsAnimated) {
-                const animateAllBtn = document.getElementById('animateAllBtn');
-                animateAllBtn.textContent = translations[currentLanguage].animateAll;
-                animateAllBtn.classList.remove('active');
-                allCardsAnimated = false;
-            }
-            
-            currentFocusedCard = null;
-            updateURL(); // Clear URL parameter
+            // Setup mobile touch effects after rendering
+            setupMobileTouchEffects();
         }
         
         // Handle deep linking
         function handleDeepLink() {
             const urlParams = new URLSearchParams(window.location.search);
             const cardSlug = urlParams.get('card');
-            const fromSource = urlParams.get('from');
-            
-            if (fromSource) {
-                sessionStorage.setItem('qr_source', fromSource);
-                trackEvent('qr_visit', { card_slug: cardSlug, source: fromSource });
-            }
             
             if (cardSlug === 'all') {
-                // Animate all cards
-                setTimeout(() => {
+                if (!allCardsAnimated) {
                     toggleAnimateAll();
-                }, 100);
+                }
             } else if (cardSlug) {
                 const cardElement = document.querySelector(`[data-slug="${cardSlug}"]`);
                 if (cardElement) {
                     setTimeout(() => {
                         focusCard(cardElement, cardSlug);
-                        cardElement.focus();
                     }, 100);
                 }
             }
         }
         
-        // Setup global event listeners
-        function setupEventListeners() {
-            // Escape key to unfocus
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && currentFocusedCard) {
-                    unfocusCard(currentFocusedCard);
-                }
-            });
-            
-            // Handle browser back/forward
-            window.addEventListener('popstate', handleDeepLink);
-            
-            // Handle window resize to re-setup mobile effects
-            window.addEventListener('resize', () => {
-                setupMobileTouchEffects();
-            });
-        }
-        
-        // Analytics tracking
-        function trackEvent(eventName, properties = {}) {
-            // Add QR source if available
-            const qrSource = sessionStorage.getItem('qr_source');
-            if (qrSource) {
-                properties.qr_source = qrSource;
-            }
-            
-            // Log to console for now (replace with actual analytics)
-            console.log('Analytics Event:', eventName, properties);
-        }
-        
-        // Show error message
-        function showError(message) {
-            const gallery = document.getElementById('gallery');
-            gallery.innerHTML = `
-                <div style="text-align: center; color: white; padding: 2rem;">
-                    <h2>Oops! Something went wrong</h2>
-                    <p>${message}</p>
-                </div>
-            `;
-        }
-        
-        // Initialize when DOM is loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
+        // Start the application
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
