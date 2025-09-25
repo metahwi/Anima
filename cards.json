@@ -1,74 +1,83 @@
 [
-    {
-      "title": "Loine",
-      "slug": "loine",
-      "src": "images/Loine_edited.jpg",
-      "gifSrc": "images/Loine.gif",
-      "desc": "A fierce warrior, guardian of the realm.",
-      "link": "#",
-      "tags": ["9:16"]
-    },
-    {
-      "title": "Quiet",
-      "slug": "quiet",
-      "src": "images/quiet.jpg",
-      "gifSrc": "images/quiet.gif",
-      "desc": "A silent scholar, keeper of ancient knowledge.",
-      "link": "#",
-      "tags": ["9:16"]
-    },
-    {
-      "title": "Artfox",
-      "slug": "artfox",
-      "src": "images/artfox_edited.jpg",
-      "gifSrc": "images/artfox.gif",
-      "desc": "A mischievous artist, bringing color to the world.",
-      "link": "#",
-      "tags": ["9:16"]
-    },
-    {
-      "title": "Echo",
-      "slug": "echo",
-      "src": "images/Echo.jpg",
-      "gifSrc": "images/Echo.gif",
-      "desc": "A mystical spirit, reflecting the whispers of the forest.",
-      "link": "#",
-      "tags": ["9:16"]
-    },
-    {
-      "title": "Ember",
-      "slug": "ember",
-      "src": "images/Ember.jpg",
-      "gifSrc": "images/Ember.gif",
-      "desc": "A fiery sorceress, wielding the power of flames.",
-      "link": "#",
-      "tags": ["9:16"]
-    },
-    {
-      "title": "Lumine",
-      "slug": "lumine",
-      "src": "images/Lumine_edited.jpg",
-      "gifSrc": "images/Lumine.gif",
-      "desc": "A radiant being, illuminating the path forward.",
-      "link": "#",
-      "tags": ["9:16"]
-    },
-    {
-      "title": "Sprout",
-      "slug": "sprout",
-      "src": "images/sprout.jpg",
-      "gifSrc": "images/sprout.gif",
-      "desc": "A nascent life, full of potential and growth.",
-      "link": "#",
-      "tags": ["9:16"]
-    },
-    {
-      "title": "Wisp",
-      "slug": "wisp",
-      "src": "images/wisp.jpg",
-      "gifSrc": "images/wisp.gif",
-      "desc": "A gentle, ethereal guide…",
-      "link": "#",
-      "tags": ["9:16"]
-    }
-  ]
+  {
+    "title": "Loine",
+    "slug": "loine",
+    "src": "images/Loine_edited.jpg",
+    "gifSrc": "images/Loine.gif",
+    "desc": "A fierce warrior, guardian of the realm.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Quiet",
+    "slug": "quiet",
+    "src": "images/quiet.jpg",
+    "gifSrc": "images/quiet.gif",
+    "desc": "A silent scholar, keeper of ancient knowledge.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Artfox",
+    "slug": "artfox",
+    "src": "images/artfox_edited.jpg",
+    "gifSrc": "images/artfox.gif",
+    "desc": "A mischievous artist, bringing color to the world.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Echo",
+    "slug": "echo",
+    "src": "images/Echo.jpg",
+    "gifSrc": "images/Echo.gif",
+    "desc": "A mystical spirit, reflecting the whispers of the forest.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Ember",
+    "slug": "ember",
+    "src": "images/Ember.jpg",
+    "gifSrc": "images/Ember.gif",
+    "desc": "A fiery sorceress, wielding the power of flames.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Lumine",
+    "slug": "lumine",
+    "src": "images/Lumine.png",
+    "gifSrc": "images/Lumine.gif",
+    "desc": "A radiant being, illuminating the path forward.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Sprout",
+    "slug": "sprout",
+    "src": "images/sprout.jpg",
+    "gifSrc": "images/sprout.gif",
+    "desc": "A nascent life, full of potential and growth.",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Wisp",
+    "slug": "wisp",
+    "src": "images/wisp.jpg",
+    "gifSrc": "images/wisp.gif",
+    "desc": "A gentle, ethereal guide…",
+    "link": "#",
+    "tags": ["9:16"]
+  },
+  {
+    "title": "Coming Soon",
+    "slug": "coming-soon",
+    "src": "images/question-mark.png",
+    "gifSrc": "images/question-mark.gif",
+    "desc": "More characters are on their way…",
+    "link": "#",
+    "tags": ["9:16"]
+  }
+]
